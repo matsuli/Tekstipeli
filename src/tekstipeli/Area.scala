@@ -1,0 +1,5 @@
+package tekstipeli
+
+class Area {
+
+}
