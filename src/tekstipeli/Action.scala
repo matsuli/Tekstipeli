@@ -19,10 +19,6 @@ class Action(input: String) {
 
     if (this.verb == "go") {
       Some(actor.go(this.modifiers))
-    } else if (this.verb == "rest") {
-      Some(actor.rest())
-    } else if (this.verb == "xyzzy") {
-      Some("The grue tastes yummy.")
     } else if (this.verb == "quit") {
       Some(actor.quit())
     } else if (this.verb == "get") {
