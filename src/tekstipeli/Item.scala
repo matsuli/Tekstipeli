@@ -1,8 +1,8 @@
 package tekstipeli
 
-class Item(val name: String, val description: String, val openable: Boolean) {
+class Item(val name: String, val description: String, val contain: Boolean) {
   
-  private val items = Map[String, Item]
+  def isOpenable = this.contain
   
   /** Returns a short textual representation of the item (its name, that is). */
   override def toString = this.name
