@@ -1,4 +1,4 @@
-package o1.adventure.ui
+package tekstipeli.ui
 
 import scala.swing._
 import scala.swing.event._
@@ -22,7 +22,7 @@ import tekstipeli._
   * or can be used, apart from the fact that you can use this file to start the program.'''
   *
   * @see [[AdventureTextUI]] */
-object AdventureGUI extends SimpleSwingApplication {
+object TekstipeliGUI extends SimpleSwingApplication {
 
   UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName) 
 
