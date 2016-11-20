@@ -18,7 +18,7 @@ class Action(input: String) {
   def execute(actor: Player) = {                             
 
     if (this.verb == "go") {
-      Some(actor.go(this.modifiers))
+      Some(actor.go(this.modifiers.drop(3)))
     } else if (this.verb == "quit") {
       Some(actor.quit())
     } else if (this.verb == "get") {

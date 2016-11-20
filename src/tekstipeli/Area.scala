@@ -20,7 +20,7 @@ class Area(var name: String, var description: String) {
   }
 
   def fullDescription = {
-    val houseRoomList = "\n\nRooms nearby: " + this.neighbors.keys.mkString(" ")
+    val houseRoomList = "\n\nRooms nearby: " + this.neighbors.keys.mkString(", ")
     val itemList = "\nYou see here: " + this.items.values.mkString(" ")
     this.description + (if(!this.items.isEmpty) itemList else "") +  houseRoomList
   }
