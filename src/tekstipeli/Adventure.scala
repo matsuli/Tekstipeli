@@ -23,11 +23,11 @@ class Adventure {
   private val destination = toilet    
 
      hallway.setNeighbors(Vector("living room" -> livingroom,   "toilet" -> toilet                                                                  ))
-  livingroom.setNeighbors(Vector(  "bedroom1"  -> bedroom1,   "bedroom2" -> bedroom2, "hallway" -> hallway, "kitchen" -> kitchen, "toilet" -> toilet))
+  livingroom.setNeighbors(Vector(   "bedroom1" -> bedroom1,   "bedroom2" -> bedroom2, "hallway" -> hallway, "kitchen" -> kitchen, "toilet" -> toilet))
      kitchen.setNeighbors(Vector("living room" -> livingroom                                                                                        ))
     bedroom1.setNeighbors(Vector("living room" -> livingroom, "bedroom2" -> bedroom2                                                                ))
     bedroom2.setNeighbors(Vector("living room" -> livingroom, "bedroom1" -> bedroom1                                                                ))
-      toilet.setNeighbors(Vector(   "hallway " -> hallway,  "livingroom" -> livingroom                                                              ))
+      toilet.setNeighbors(Vector(    "hallway" -> hallway,  "livingroom" -> livingroom                                                              ))
         
          
   //  place these two items in clearing and southForest, respectively
