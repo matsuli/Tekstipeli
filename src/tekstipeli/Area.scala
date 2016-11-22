@@ -8,6 +8,7 @@ class Area(var name: String, var description: String) {
   private val neighbors = Map[String, Area]()
   private val items = Map[String, Item]()
   
+  def neighboringAreas = this.neighbors.values.toVector
   
   def neighbor(direction: String) = this.neighbors.get(direction)
 
