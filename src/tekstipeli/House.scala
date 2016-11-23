@@ -10,6 +10,8 @@ class House(val rooms: Map[String, Area], val player: Player) {
     distance
   }
   
-  def placeItems = ???
+  def placeItems = {
+
+  }
   
 }
