@@ -11,8 +11,7 @@ class House(val rooms: Map[String, Area], val player: Player) {
   }
   
   def placeItems = {
-    while(player == mats) quit'
-    qwtqwtqwropj
+
   }
   
 }
