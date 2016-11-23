@@ -1,7 +1,7 @@
 package tekstipeli
 
 class Human(name: String) {
-  
+  println("haloj")
   var hunger = 7
   var thirst = 4
   var insanity = 10
