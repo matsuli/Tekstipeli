@@ -5,6 +5,10 @@ class Human(val name: String) {
   var hunger = 7
   var thirst = 4
   var insanity = 10
+  var injured = false
+  var daysLeftExpedition = 0
+  var onExpedition = if (daysLeftExpedition > 0) true else false
+  
   
   def eat(item: Item) = {
     if(item.name == "cannedBeans") {
@@ -27,8 +31,13 @@ class Human(val name: String) {
   def advanceDay = {
     hunger -= 1
     thirst -= 1
+    if (onExpedition) daysLeftExpedition -= 1
   }
   
+  def health = {
+    if (injured) this.name + "got a cut in his hand and that should be treated"
+    
+  }
   
   def hungerStatus: String = {
     
@@ -48,7 +57,7 @@ class Human(val name: String) {
     else ""
   }
   
-  def report = hungerStatus + thirstStatus
+  def report = health + hungerStatus + thirstStatus
   
   
 }
