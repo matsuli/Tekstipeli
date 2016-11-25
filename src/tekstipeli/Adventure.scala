@@ -34,12 +34,7 @@ class Adventure {
     bedroom2.setNeighbors(Vector("livingroom"  -> livingroom, "bedroom1" -> bedroom1                                                                ))
       toilet.setNeighbors(Vector(    "hallway" -> hallway,  "livingroom" -> livingroom                                                              ))
         
-         
-  //  place these two items in clearing and southForest, respectively
-  
-  val bunker = new Bunker
-  
-  
+        
      hallway.setNeighbors(Vector("livingroom" -> livingroom,   "toilet" -> toilet                                                                  ))
   livingroom.setNeighbors(Vector(   "bedroom1" -> bedroom1,   "bedroom2" -> bedroom2, "hallway" -> hallway, "kitchen" -> kitchen, "toilet" -> toilet))
      kitchen.setNeighbors(Vector("livingroom" -> livingroom                                                                                        ))
@@ -54,6 +49,7 @@ class Adventure {
   val player = new Player(hallway)
   
   val house = new House(rooms, player)
+  val bunker = new Bunker
   
   house.placeItems(items)
 

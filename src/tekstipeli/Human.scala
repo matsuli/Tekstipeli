@@ -9,8 +9,11 @@ class Human(val name: String) {
   private var injured = false
   var daysLeftOfExpedition = 0
   
-  def onExpedition = if (daysLeftOfExpedition > 0) true else false
-  
+  def advanceOneDay = {
+    hunger -= 1
+    thirst -= 1
+    if (onExpedition) daysLeftOfExpedition -= 1
+  }
   
   def eat(item: Item) = {
     if(item.name == "cannedBeans") {
@@ -30,11 +33,6 @@ class Human(val name: String) {
     null
   }
   
-  def advanceOneDay = {
-    hunger -= 1
-    thirst -= 1
-    if (onExpedition) daysLeftOfExpedition -= 1
-  }
   
   def health = {
     if (injured) this.name + "got a cut in his hand and that should be treated"
@@ -56,6 +54,8 @@ class Human(val name: String) {
     else if (thirst == 1)this.name + "needs water now!!"
     else ""
   }
+  
+  def onExpedition = if (daysLeftOfExpedition > 0) true else false
   
   def report = health + hungerStatus + thirstStatus
   

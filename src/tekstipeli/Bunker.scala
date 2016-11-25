@@ -4,7 +4,7 @@ import scala.collection.mutable.Buffer
 
 class Bunker {
   
-  var humans = Buffer[Human]()
+  private var humans = Buffer[Human]()
   
   def dailyReport = {
     
@@ -22,31 +22,17 @@ class Bunker {
   
   def event: String = {
     
-
     val ants = "There's a small problem... Apparently there was ants living in the bunker and they don't want us here.\nWhat should we do to them?"
-    val knock1 = "What? Did someone knock on the door? The knock was so gentle that we almost didn't hear it.\nShould we open?"
-    val knock2 = "There is someone banging on the door. Do we dare open?"
+    val knockGentle = "What? Did someone knock on the door? The knock was so gentle that we almost didn't hear it.\nShould we open?"
+    val knockHard = "There is someone banging on the door. Do we dare open?"
     val screams = "Someone is screaming for help outside. Should we help?"
     
     null
   }
   
   def expedition(human: Human) = {
-    
     human.daysLeftOfExpedition = 3
-    
-    
-    
-    
-    
   }
   
-  
-  
-  
-  
-  
-  
-  
-  
+ 
 }
