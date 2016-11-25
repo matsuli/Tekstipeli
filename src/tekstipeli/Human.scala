@@ -1,6 +1,6 @@
 package tekstipeli
 
-class Human(name: String) {
+class Human(val name: String) {
   println("haloj")
   var hunger = 7
   var thirst = 4
@@ -17,6 +17,12 @@ class Human(name: String) {
   def heal(item: Item) = {
     null
   }
+  
+  def advanceDay = {
+    hunger -= 1
+    thirst -= 1
+  }
+  
   
   var hungerStatus: String = {
     
