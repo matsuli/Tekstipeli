@@ -1,17 +1,23 @@
 package tekstipeli
 
 class Human(val name: String) {
-  println("haloj")
+  
   var hunger = 7
   var thirst = 4
   var insanity = 10
   
   def eat(item: Item) = {
-    this.hunger = 7
+    if(item.name == "cannedBeans") {
+      this.hunger = 7
+      this.name + "ate the can of beans and is satisfied"
+    } else "You can't eat " + item.name + "!"
   }
   
   def drink(item: Item) = {
-    this.thirst = 4
+    if (item.name == "water") {
+      this.thirst = 4
+      this.name + "drank the water and feels refreshed!"
+    } else "You can't drink that!"
   }
   
   def heal(item: Item) = {
@@ -24,7 +30,7 @@ class Human(val name: String) {
   }
   
   
-  var hungerStatus: String = {
+  def hungerStatus: String = {
     
     if (hunger == 7) ""
     else if (hunger > 4) this.name + "is getting hungry" 
@@ -33,7 +39,7 @@ class Human(val name: String) {
     else ""
   }
   
-  var thirstStatus: String = {
+  def thirstStatus: String = {
     
     if (thirst == 4) ""
     else if (thirst > 2) this.name + "is getting thirsty" 
@@ -42,6 +48,7 @@ class Human(val name: String) {
     else ""
   }
   
-  override def toString = hungerStatus + thirstStatus
+  def report = hungerStatus + thirstStatus
+  
   
 }

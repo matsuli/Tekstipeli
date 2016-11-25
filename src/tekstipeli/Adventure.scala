@@ -22,11 +22,11 @@ class Adventure {
   private val toilet      = new Area("Toilet", "A Toilet")
   private val destination = toilet    
 
-     hallway.setNeighbors(Vector("living room" -> livingroom,   "toilet" -> toilet                                                                  ))
+     hallway.setNeighbors(Vector("livingroom"  -> livingroom,   "toilet" -> toilet                                                                  ))
   livingroom.setNeighbors(Vector(   "bedroom1" -> bedroom1,   "bedroom2" -> bedroom2, "hallway" -> hallway, "kitchen" -> kitchen, "toilet" -> toilet))
-     kitchen.setNeighbors(Vector("living room" -> livingroom                                                                                        ))
-    bedroom1.setNeighbors(Vector("living room" -> livingroom, "bedroom2" -> bedroom2                                                                ))
-    bedroom2.setNeighbors(Vector("living room" -> livingroom, "bedroom1" -> bedroom1                                                                ))
+     kitchen.setNeighbors(Vector("livingroom"  -> livingroom                                                                                        ))
+    bedroom1.setNeighbors(Vector("livingroom"  -> livingroom, "bedroom2" -> bedroom2                                                                ))
+    bedroom2.setNeighbors(Vector("livingroom"  -> livingroom, "bedroom1" -> bedroom1                                                                ))
       toilet.setNeighbors(Vector(    "hallway" -> hallway,  "livingroom" -> livingroom                                                              ))
         
          
@@ -34,6 +34,14 @@ class Adventure {
   bedroom1.addItem(new Item("battery", "It's a small battery cell. Looks new.", false))  
   kitchen.addItem(new Item("remote", "It's the remote control for your TV.\nWhat it was doing in the forest, you have no idea.\nProblem is, there's no battery.", false))
 
+  
+  val bunker = new Bunker
+  
+  
+  
+  
+  
+  
   /** The character that the player controls in the game. */
   val player = new Player(hallway)
 
