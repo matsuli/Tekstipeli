@@ -1,14 +1,7 @@
 package tekstipeli
+import scala.collection.mutable.Map
+import scala.collection.mutable.Buffer
 
-
-/** The class `Adventure` represents text adventure games. An adventure consists of a player and 
-  * a number of areas that make up the game world. It provides methods for playing the game one
-  * turn at a time and for checking the state of the game.
-  *
-  * N.B. This version of the class has a lot of "hard-coded" information which pertain to a very 
-  * specific adventure game that involves a small trip through a twisted forest. All newly created 
-  * instances of class `Adventure` are identical to each other. To create other kinds of adventure 
-  * games, you will need to modify or replace the source code of this class. */
 class Adventure {
 
   /** The title of the adventure game. */
@@ -20,7 +13,19 @@ class Adventure {
   private val bedroom1    = new Area("First bedroom", "A Bedroom")
   private val bedroom2    = new Area("Second bedroom", "A Bedroom")
   private val toilet      = new Area("Toilet", "A Toilet")
-  private val destination = toilet    
+  private val destination = toilet
+  
+  private val cannedBeans = new Item("Canned Beans", "A can of Beans", false)
+  private val waterBottle = new Item("Water Bottle", "A bottle of Water", false)
+  private val axe         = new Item("Axe", "An Axe", false)
+  private val radio       = new Item("Radio", "A Radio", false)
+  private val gasMask     = new Item("Gas Mask", "A Gas Mask", false)
+  private val medKit      = new Item("Medkit", "A Medkit", false)
+  private val map         = new Item("Map", "A Map", false)
+  private val flashlight  = new Item("Flashlight", "A Flashlight", false)
+  private val bugSpray    = new Item("Bugspray", "A bottle of Bugspray", false)
+  private val playingCards = new Item("Playingcards", "A deck of cards", false)
+  
 
      hallway.setNeighbors(Vector("livingroom"  -> livingroom,   "toilet" -> toilet                                                                  ))
   livingroom.setNeighbors(Vector(   "bedroom1" -> bedroom1,   "bedroom2" -> bedroom2, "hallway" -> hallway, "kitchen" -> kitchen, "toilet" -> toilet))
@@ -31,19 +36,26 @@ class Adventure {
         
          
   //  place these two items in clearing and southForest, respectively
-  bedroom1.addItem(new Item("battery", "It's a small battery cell. Looks new.", false))  
-  kitchen.addItem(new Item("remote", "It's the remote control for your TV.\nWhat it was doing in the forest, you have no idea.\nProblem is, there's no battery.", false))
-
   
   val bunker = new Bunker
   
   
-  
-  
-  
-  
+     hallway.setNeighbors(Vector("livingroom" -> livingroom,   "toilet" -> toilet                                                                  ))
+  livingroom.setNeighbors(Vector(   "bedroom1" -> bedroom1,   "bedroom2" -> bedroom2, "hallway" -> hallway, "kitchen" -> kitchen, "toilet" -> toilet))
+     kitchen.setNeighbors(Vector("livingroom" -> livingroom                                                                                        ))
+    bedroom1.setNeighbors(Vector("livingroom" -> livingroom, "bedroom2" -> bedroom2                                                                ))
+    bedroom2.setNeighbors(Vector("livingroom" -> livingroom, "bedroom1" -> bedroom1                                                                ))
+      toilet.setNeighbors(Vector(    "hallway" -> hallway,  "livingroom" -> livingroom                                                              ))
+        
+  private val rooms = Map[String, Area](hallway.name -> hallway, livingroom.name -> livingroom, kitchen.name -> kitchen, bedroom1.name -> bedroom1, bedroom2.name -> bedroom2, toilet.name -> toilet)
+  private val items = Buffer(cannedBeans, waterBottle, axe, radio, medKit, map, flashlight, bugSpray, playingCards)
+ 
   /** The character that the player controls in the game. */
   val player = new Player(hallway)
+  
+  val house = new House(rooms, player)
+  
+  house.placeItems(items)
 
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 0

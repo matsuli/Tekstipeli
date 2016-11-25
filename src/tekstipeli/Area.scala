@@ -17,8 +17,8 @@ class Area(var name: String, var description: String) {
     this.neighbors += direction -> neighbor
   }
 
-  def setNeighbors(rooms: Vector[(String, Area)]) = {
-    this.neighbors ++= rooms
+  def setNeighbors(neighbors: Vector[(String, Area)]) = {
+    this.neighbors ++= neighbors
   }
 
   def fullDescription = {

@@ -33,7 +33,7 @@ class Bunker {
   
   def expedition(human: Human) = {
     
-    human.daysLeftExpedition = 3
+    human.daysLeftOfExpedition = 3
     
     
     

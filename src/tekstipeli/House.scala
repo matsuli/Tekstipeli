@@ -1,4 +1,7 @@
 package tekstipeli
+import scala.collection.mutable.Buffer
+import scala.collection.mutable.Map
+import scala.util.Random
 
 class House(val rooms: Map[String, Area], val player: Player) {
   
@@ -16,8 +19,16 @@ class House(val rooms: Map[String, Area], val player: Player) {
     distance
   }
   
-  def placeItems = {
-
+  def placeItems(items: Buffer[Item]) = {
+    val randomSeed = new Random
+    val randomizedItems = randomSeed.shuffle(items)
+    for(currentRoom <- 0 until this.rooms.size) {
+      val roomCollection = this.rooms.values.toVector
+      for(currentItem <- 0 to (items.size/this.rooms.size)) {
+        roomCollection(currentRoom).addItem(randomizedItems(currentItem))
+        randomizedItems -= randomizedItems(currentItem)
+      }
+    }
   }
   
 }

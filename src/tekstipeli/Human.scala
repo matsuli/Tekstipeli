@@ -1,13 +1,15 @@
 package tekstipeli
 
+
 class Human(val name: String) {
+
+  private var hunger = 7
+  private var thirst = 4
+  private var insanity = 10
+  private var injured = false
+  var daysLeftOfExpedition = 0
   
-  var hunger = 7
-  var thirst = 4
-  var insanity = 10
-  var injured = false
-  var daysLeftExpedition = 0
-  var onExpedition = if (daysLeftExpedition > 0) true else false
+  def onExpedition = if (daysLeftOfExpedition > 0) true else false
   
   
   def eat(item: Item) = {
@@ -28,10 +30,10 @@ class Human(val name: String) {
     null
   }
   
-  def advanceDay = {
+  def advanceOneDay = {
     hunger -= 1
     thirst -= 1
-    if (onExpedition) daysLeftExpedition -= 1
+    if (onExpedition) daysLeftOfExpedition -= 1
   }
   
   def health = {
@@ -40,7 +42,6 @@ class Human(val name: String) {
   }
   
   def hungerStatus: String = {
-    
     if (hunger == 7) ""
     else if (hunger > 4) this.name + "is getting hungry" 
     else if (hunger > 1) this.name + "is very hungry!"
@@ -49,7 +50,6 @@ class Human(val name: String) {
   }
   
   def thirstStatus: String = {
-    
     if (thirst == 4) ""
     else if (thirst > 2) this.name + "is getting thirsty" 
     else if (thirst > 1) this.name + "is very thirsty!"
