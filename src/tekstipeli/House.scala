@@ -24,7 +24,7 @@ class House(val rooms: Map[String, Area], val player: Player) {
     val randomizedItems = randomSeed.shuffle(items)
     for(currentRoom <- 0 until this.rooms.size) {
       val roomCollection = this.rooms.values.toVector
-      for(currentItem <- 0 to (items.size/this.rooms.size)) {
+      for(currentItem <- 0 to 1) {
         roomCollection(currentRoom).addItem(randomizedItems(currentItem))
         randomizedItems -= randomizedItems(currentItem)
       }
