@@ -22,12 +22,12 @@ class House(val rooms: Map[String, Area], val player: Player) {
   def placeItems(items: Buffer[Item]) = {
     val randomSeed = new Random
     val randomizedItems = randomSeed.shuffle(items)
-    for(currentRoom <- 0 until this.rooms.size) {
-      val roomCollection = this.rooms.values.toVector
-      for(currentItem <- 0 to 1) {
-        roomCollection(currentRoom).addItem(randomizedItems(currentItem))
-        randomizedItems -= randomizedItems(currentItem)
-      }
+    val roomCollection = this.rooms.values.toVector
+    var n = 0
+    while(randomizedItems.nonEmpty) {
+      roomCollection(n).addItem(randomizedItems(0))
+      randomizedItems -= randomizedItems(0)
+      n = (n + 1) % roomCollection.size
     }
   }
   
