@@ -69,6 +69,17 @@ class Player(startingArea: Area) {
     } else "You are empty-handed."
   }
 
+  def warn(human: String) = {
+    if(currentLocation.humans.contains(human)) {
+      this.currentLocation.humans -= human
+      
+      "You warn " + human + ", he runs to the bunker."
+    } else human + "is not here!"
+    
+    
+    
+  }
+  
   
   /** Returns a brief description of the player's state, for debugging purposes. */
   override def toString = "Now at: " + this.location.name   
