@@ -15,15 +15,15 @@ class Adventure {
   private val toilet      = new Area("Toilet", "A Toilet")
   private val destination = toilet
   
-  private val cannedBeans = new Item("Canned Beans", "A can of Beans", false)
-  private val waterBottle = new Item("Water Bottle", "A bottle of Water", false)
-  private val axe         = new Item("Axe", "An Axe", false)
-  private val radio       = new Item("Radio", "A Radio", false)
-  private val gasMask     = new Item("Gas Mask", "A Gas Mask", false)
-  private val medKit      = new Item("Medkit", "A Medkit", false)
-  private val map         = new Item("Map", "A Map", false)
-  private val flashlight  = new Item("Flashlight", "A Flashlight", false)
-  private val bugSpray    = new Item("Bugspray", "A bottle of Bugspray", false)
+  private val cannedBeans  = new Item("Canned Beans", "A can of Beans", false)
+  private val waterBottle  = new Item("Water Bottle", "A bottle of Water", false)
+  private val axe          = new Item("Axe", "An Axe", false)
+  private val radio        = new Item("Radio", "A Radio", false)
+  private val gasMask      = new Item("Gas Mask", "A Gas Mask", false)
+  private val medKit       = new Item("Medkit", "A Medkit", false)
+  private val map          = new Item("Map", "A Map", false)
+  private val flashlight   = new Item("Flashlight", "A Flashlight", false)
+  private val bugSpray     = new Item("Bugspray", "A bottle of Bugspray", false)
   private val playingCards = new Item("Playingcards", "A deck of cards", false)
   
 
@@ -43,7 +43,7 @@ class Adventure {
       toilet.setNeighbors(Vector(    "hallway" -> hallway,  "livingroom" -> livingroom                                                              ))
         
   private val rooms = Map[String, Area](hallway.name -> hallway, livingroom.name -> livingroom, kitchen.name -> kitchen, bedroom1.name -> bedroom1, bedroom2.name -> bedroom2, toilet.name -> toilet)
-  private val items = Buffer(cannedBeans, waterBottle, axe, radio, medKit, map, flashlight, bugSpray, playingCards)
+  private val items = Buffer(cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, waterBottle, axe, radio, medKit, map, flashlight, bugSpray, playingCards)
  
   /** The character that the player controls in the game. */
   val player = new Player(hallway)
@@ -70,7 +70,13 @@ class Adventure {
   def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit
 
   /** Returns a message that is to be displayed to the player at the beginning of the game. */
-  def welcomeMessage = "The nuke is coming! Quick, you have 60 seconds to take everything you need!"
+  def welcomeMessage = {
+    (if(house.distanceToItem("Radio") == 0) "pleb"
+    else if(house.distanceToItem("Radio") == 1) "beep boop"
+    else if(house.distanceToItem("Radio") == 2) "bööp beep"
+    else "wqr") +
+    "\nThe nuke is coming! Quick, you have 60 seconds to take everything you need!"
+  }
 
     
   /** Returns a message that is to be displayed to the player at the end of the game. The message 

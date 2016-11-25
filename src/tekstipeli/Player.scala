@@ -30,7 +30,7 @@ class Player(startingArea: Area) {
     this.quitCommandGiven = true
     ""
   }
-  
+
   def get(itemName: String) = {
     if(currentLocation.contains(itemName)) {
       this.items += itemName -> this.currentLocation.removeItem(itemName).get
@@ -38,7 +38,7 @@ class Player(startingArea: Area) {
       "You pick up the " + itemName + "."
     } else "There is no " + itemName + " here to pick up."
   }
-  
+
   def drop(itemName: String) = {
     if(this.has(itemName)) {
       this.currentLocation.addItem(this.items(itemName))

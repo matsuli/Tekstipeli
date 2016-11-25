@@ -1,6 +1,7 @@
 package tekstipeli
 
 import scala.collection.mutable.Map
+import scala.collection.mutable.Buffer
 
 
 class Area(var name: String, var description: String) {
