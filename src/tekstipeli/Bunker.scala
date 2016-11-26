@@ -1,14 +1,13 @@
 package tekstipeli
 import scala.collection.mutable.Buffer
+import scala.collection.mutable.Map
 
-
-class Bunker {
+class Bunker(var humans: Map[String, Human]) {
   
-  private var humans = Buffer[Human]()
   
   def dailyReport = {
     
-    story + humans.foreach(_.report) + event
+    story + humans.values.toVector.foreach(_.report) + event
     
     
   }

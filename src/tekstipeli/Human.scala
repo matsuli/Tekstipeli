@@ -59,5 +59,5 @@ class Human(val name: String) {
   
   def report = health + hungerStatus + thirstStatus
   
-  
+  override def toString = this.name
 }
