@@ -7,7 +7,7 @@ import scala.collection.mutable.Buffer
 class Adventure {
 
   /** The title of the adventure game. */
-  val title = "60 seconds"
+  val title = "21 turns"
     
   private val hallway      = new Area("Hallway", "The Hallway")
   private val livingroom   = new Area("Livingroom", "The Living Room")
@@ -17,20 +17,21 @@ class Adventure {
   private val toilet       = new Area("Toilet", "A Toilet")
   private val destination  = toilet
   
-  private val cannedBeans  = new Item("Canned Beans", "A can of Beans", false)
-  private val waterBottle  = new Item("Water Bottle", "A bottle of Water", false)
-  private val axe          = new Item("Axe", "An Axe", false)
-  private val radio        = new Item("Radio", "A Radio", false)
-  private val gasMask      = new Item("Gas Mask", "A Gas Mask", false)
-  private val medKit       = new Item("Medkit", "A Medkit", false)
-  private val map          = new Item("Map", "A Map", false)
-  private val flashlight   = new Item("Flashlight", "A Flashlight", false)
-  private val bugSpray     = new Item("Bugspray", "A bottle of Bugspray", false)
-  private val playingCards = new Item("Playingcards", "A deck of cards", false)
+  private val cannedBeans  = new Item("Canned Beans", "A can of Beans", 0)
+  private val waterBottle  = new Item("Water Bottle", "A bottle of Water", 0)
+  private val axe          = new Item("Axe", "An Axe", 0)
+  private val radio        = new Item("Radio", "A Radio", 0)
+  private val gasMask      = new Item("Gas Mask", "A Gas Mask", 0)
+  private val medKit       = new Item("Medkit", "A Medkit", 0)
+  private val map          = new Item("Map", "A Map", 0)
+  private val flashlight   = new Item("Flashlight", "A Flashlight", 0)
+  private val bugSpray     = new Item("Bugspray", "A bottle of Bugspray", 0)
+  private val playingCards = new Item("Playingcards", "A deck of cards", 0)
+  private val closet       = new Item("Closet", "An openable Closet", 5)
   
   private val peter        = new Human("Peter")
   private val georg        = new Human("Georg")
-  private val mats         = new Human("mats")
+  private val mats         = new Human("Mats")
 
      hallway.setNeighbors(Vector("livingroom"  -> livingroom , "toilet"     -> toilet                                                                  ))
   livingroom.setNeighbors(Vector("bedroom1"    -> bedroom1   , "bedroom2"   -> bedroom2, "hallway" -> hallway, "kitchen" -> kitchen, "toilet" -> toilet))
@@ -44,11 +45,11 @@ class Adventure {
      kitchen.addHuman(georg)
 
   private val rooms = Map[String, Area](hallway.name -> hallway, livingroom.name -> livingroom, kitchen.name -> kitchen, bedroom1.name -> bedroom1, bedroom2.name -> bedroom2, toilet.name -> toilet)
-  private val items = Buffer(cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, waterBottle, axe, radio, medKit, map, flashlight, bugSpray, playingCards)
+  private val items = Buffer(cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, waterBottle, axe, radio, medKit, map, flashlight, bugSpray, playingCards, closet)
  
   /** The character that the player controls in the game. */
   val player = new Player(hallway)
-  val house = new House(rooms, player)
+  val house  = new House(rooms, player)
   val bunker = new Bunker(player.warnedHumans)
   
   house.placeItems(items)

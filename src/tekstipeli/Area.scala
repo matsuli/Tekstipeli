@@ -7,7 +7,7 @@ import scala.collection.mutable.Buffer
 class Area(var name: String, var description: String) {
   
   private val neighbors = Map[String, Area]()
-  private val items = Map[String, Buffer[Item]]()
+  val items = Map[String, Buffer[Item]]()
   private val humans = Map[String, Human]()
   
   def neighboringAreas = this.neighbors.values.toVector

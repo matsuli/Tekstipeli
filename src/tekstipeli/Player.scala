@@ -33,15 +33,27 @@ class Player(startingArea: Area) {
   }
 
   def get(itemName: String) = {
-    println(currentLocation.contains(itemName))
     if(currentLocation.contains(itemName)) {
-      println(this.carrying.contains("radio"))
       if(this.carrying.contains(itemName)) {
         this.carrying(itemName) += this.currentLocation.removeItem(itemName).get
       } else this.carrying += itemName -> Buffer(this.currentLocation.removeItem(itemName).get)
-      currentLocation.removeItem(itemName)
       "You pick up the " + itemName + "."
     } else "There is no " + itemName + " here to pick up."
+  }
+  
+  def open(itemName: String) = {
+    if(this.currentLocation.contains(itemName)) {
+      val itemToOpen = currentLocation.items(itemName)(0)
+      if(itemToOpen.isOpenable) {
+      val itemsInside = itemToOpen.contains.values.toBuffer
+      for(currentItem <- itemsInside.indices) {
+        this.currentLocation.addItem(itemsInside(currentItem))
+        itemToOpen.contains -= itemsInside(currentItem).name
+      }
+      currentLocation.removeItem(itemName)
+      "You open the " + itemName + ". Out falls some items."
+    } else "You can't open that!"
+    } else "I can't see " + itemName + "here."
   }
 
   def drop(itemName: String) = {
@@ -78,10 +90,7 @@ class Player(startingArea: Area) {
     if(currentLocation.containsHuman(human)) {
       this.warnedHumans += human -> this.currentLocation.removeHuman(human).get
       "You warn " + human + ", he runs to the bunker."
-    } else human + " is not here!"
-    
-    
-    
+    } else human + " is not here!" 
   }
   
   

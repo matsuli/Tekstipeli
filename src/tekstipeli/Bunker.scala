@@ -20,7 +20,6 @@ class Bunker(var humans: Map[String, Human]) {
   
   def humanReport = {
     if(humans.nonEmpty) humans.values.toVector.foreach(_.report) else ""
-    
   }
   
   

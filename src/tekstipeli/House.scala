@@ -31,6 +31,12 @@ class House(val rooms: Map[String, Area], val player: Player) {
     val roomCollection = this.rooms.values.toVector
     var n = 0
     while(randomizedItems.nonEmpty) {
+      if(randomizedItems(0).isOpenable && randomizedItems.size >= 2) {
+        while(!randomizedItems(0).isFull && randomizedItems.size >= 2) {
+          randomizedItems(0).addItemInside(randomizedItems(1))
+          randomizedItems -= randomizedItems(1)
+        }
+      }
       roomCollection(n).addItem(randomizedItems(0))
       randomizedItems -= randomizedItems(0)
       n = (n + 1) % roomCollection.size
