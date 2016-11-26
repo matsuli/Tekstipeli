@@ -24,8 +24,9 @@ class Area(var name: String, var description: String) {
 
   def fullDescription = {
     val houseRoomList = "\n\nRooms nearby: " + this.neighbors.keys.mkString(", ")
-    val itemList = "\nYou see here: " + this.items.values.mkString(" ")
-    this.description + (if(!this.items.isEmpty) itemList else "") +  houseRoomList
+    val itemList = "\nYou see here: " + this.items.values.mkString(", ")
+    val humanList = "\nHumans in the room: " + this.humans.values.mkString(", ")
+    this.description + (if(!this.items.isEmpty) itemList else "") + (if(!this.humans.isEmpty) humanList else "") +  houseRoomList
   }
   
   def addItem(item: Item) = {
@@ -36,6 +37,7 @@ class Area(var name: String, var description: String) {
     this.humans += human.name -> human
   }
   
+  def removeHuman(humanName: String) = this.humans.remove(humanName)
   
   def removeItem(itemName: String) = this.items.remove(itemName)
   

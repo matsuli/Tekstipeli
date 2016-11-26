@@ -26,6 +26,9 @@ class Adventure {
   private val bugSpray     = new Item("Bugspray", "A bottle of Bugspray", false)
   private val playingCards = new Item("Playingcards", "A deck of cards", false)
   
+  private val peter        = new Human("Peter")
+  private val georg        = new Human("Georg")
+  private val mats         = new Human("Mats")
 
      hallway.setNeighbors(Vector("livingroom"  -> livingroom,   "toilet" -> toilet                                                                  ))
   livingroom.setNeighbors(Vector(   "bedroom1" -> bedroom1,   "bedroom2" -> bedroom2, "hallway" -> hallway, "kitchen" -> kitchen, "toilet" -> toilet))
@@ -42,6 +45,10 @@ class Adventure {
     bedroom2.setNeighbors(Vector("livingroom" -> livingroom, "bedroom1" -> bedroom1                                                                ))
       toilet.setNeighbors(Vector(    "hallway" -> hallway,  "livingroom" -> livingroom                                                              ))
         
+      toilet.addHuman(mats)
+    bedroom1.addHuman(peter)
+     kitchen.addHuman(georg)
+      
   private val rooms = Map[String, Area](hallway.name -> hallway, livingroom.name -> livingroom, kitchen.name -> kitchen, bedroom1.name -> bedroom1, bedroom2.name -> bedroom2, toilet.name -> toilet)
   private val items = Buffer(cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, waterBottle, axe, radio, medKit, map, flashlight, bugSpray, playingCards)
  
@@ -49,7 +56,7 @@ class Adventure {
   val player = new Player(hallway)
   
   val house = new House(rooms, player)
-  val bunker = new Bunker
+  val bunker = new Bunker(player.warnedHumans)
   
   house.placeItems(items)
 

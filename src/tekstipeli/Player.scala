@@ -8,7 +8,7 @@ class Player(startingArea: Area) {
   private var currentLocation = startingArea        // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false              // one-way flag
   private val items = Map[String, Item]()
-   
+  val warnedHumans = Map[String, Human]()
   
   /** Determines if the player has indicated a desire to quit the game. */
   def hasQuit = this.quitCommandGiven
@@ -72,7 +72,7 @@ class Player(startingArea: Area) {
   def warn(human: String) = {
     if(currentLocation.humans.contains(human)) {
       this.currentLocation.humans -= human
-      
+      this.warnedHumans += human -> this.currentLocation.removeHuman(human).get
       "You warn " + human + ", he runs to the bunker."
     } else human + "is not here!"
     
