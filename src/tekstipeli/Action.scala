@@ -7,8 +7,8 @@ package tekstipeli
 class Action(input: String) {
 
   private val commandText = input.trim
-  private val verb        = commandText.takeWhile( _ != ' ' )
-  private val modifiers   = commandText.drop(verb.length).trim
+  private val verb        = commandText.takeWhile( _ != ' ' ).toLowerCase
+  private val modifiers   = commandText.drop(verb.length).trim.toLowerCase.split(' ').map( _.capitalize ).mkString(" ")
 
   
   /** Causes the given player to take the action represented by this object, assuming 
