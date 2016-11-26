@@ -28,7 +28,7 @@ class Adventure {
   
   private val peter        = new Human("Peter")
   private val georg        = new Human("Georg")
-  private val mats         = new Human("Mats")
+  private val mats         = new Human("mats")
 
      hallway.setNeighbors(Vector("livingroom"  -> livingroom,   "toilet" -> toilet                                                                  ))
   livingroom.setNeighbors(Vector(   "bedroom1" -> bedroom1,   "bedroom2" -> bedroom2, "hallway" -> hallway, "kitchen" -> kitchen, "toilet" -> toilet))

@@ -8,7 +8,7 @@ class Area(var name: String, var description: String) {
   
   private val neighbors = Map[String, Area]()
   private val items = Map[String, Item]()
-  val humans = Map[String, Human]()
+  private val humans = Map[String, Human]()
   
   def neighboringAreas = this.neighbors.values.toVector
   
@@ -42,6 +42,8 @@ class Area(var name: String, var description: String) {
   def removeItem(itemName: String) = this.items.remove(itemName)
   
   def contains(itemName: String) = this.items.contains(itemName)
+  
+  def containsHuman(humanName: String) = this.humans.contains(humanName)
   
   /** Returns a single-line description of the area for debugging purposes. */
   override def toString = this.name + ": " + this.description.replaceAll("\n", " ").take(150)
