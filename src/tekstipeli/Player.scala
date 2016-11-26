@@ -1,13 +1,14 @@
 package tekstipeli
 
 import scala.collection.mutable.Map
+import scala.collection.mutable.Buffer
 
 
 class Player(startingArea: Area) {
 
   private var currentLocation = startingArea        // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false              // one-way flag
-  private val items = Map[String, Item]()
+  private val carrying = Map[String, Buffer[Item]]()
   val warnedHumans = Map[String, Human]()
   
   /** Determines if the player has indicated a desire to quit the game. */
@@ -32,8 +33,12 @@ class Player(startingArea: Area) {
   }
 
   def get(itemName: String) = {
+    println(currentLocation.contains(itemName))
     if(currentLocation.contains(itemName)) {
-      this.items += itemName -> this.currentLocation.removeItem(itemName).get
+      println(this.carrying.contains("radio"))
+      if(this.carrying.contains(itemName)) {
+        this.carrying(itemName) += this.currentLocation.removeItem(itemName).get
+      } else this.carrying += itemName -> Buffer(this.currentLocation.removeItem(itemName).get)
       currentLocation.removeItem(itemName)
       "You pick up the " + itemName + "."
     } else "There is no " + itemName + " here to pick up."
@@ -41,8 +46,8 @@ class Player(startingArea: Area) {
 
   def drop(itemName: String) = {
     if(this.has(itemName)) {
-      this.currentLocation.addItem(this.items(itemName))
-      this.items -= itemName
+      this.currentLocation.addItem(this.carrying(itemName)(0))
+      if(this.carrying(itemName).size == 1) this.carrying -= itemName else this.carrying(itemName) -= this.carrying(itemName)(0)
       "You drop the " + itemName + "."
     } else "You don't have that!"
   }
@@ -57,12 +62,12 @@ class Player(startingArea: Area) {
     } else "If you want to examine something, you need to pick it up first."
   }
   
-  def has(itemName: String) = this.items.contains(itemName)
+  def has(itemName: String) = this.carrying.contains(itemName)
   
   def inventory: String = {
-    if(this.items.nonEmpty) {
+    if(this.carrying.nonEmpty) {
       var currentItems = ""
-      for(pair <- this.items) {
+      for(pair <- this.carrying) {
         currentItems += pair._1 + "\n"
       }
       "You are carrying:\n" + currentItems

@@ -7,7 +7,7 @@ import scala.collection.mutable.Buffer
 class Area(var name: String, var description: String) {
   
   private val neighbors = Map[String, Area]()
-  private val items = Map[String, Item]()
+  private val items = Map[String, Buffer[Item]]()
   private val humans = Map[String, Human]()
   
   def neighboringAreas = this.neighbors.values.toVector
@@ -23,14 +23,20 @@ class Area(var name: String, var description: String) {
   }
 
   def fullDescription = {
+    var itemString = ""
     val houseRoomList = "\n\nRooms nearby: " + this.neighbors.keys.mkString(", ")
-    val itemList = "\nYou see here: " + this.items.values.mkString(", ")
     val humanList = "\nHumans in the room: " + this.humans.values.mkString(", ")
-    this.description + (if(!this.items.isEmpty) itemList else "") + (if(!this.humans.isEmpty) humanList else "") +  houseRoomList
+    for(currentBuffer <- this.items.values) {
+      for(currentItem <- 0 until currentBuffer.size) {
+        itemString += currentBuffer(currentItem).name + ":"
+      }
+    }
+    val itemList = "\nYou see here: " + itemString.split(":").mkString(", ")
+    this.description + (if(!this.items.isEmpty) itemList else "") + (if(!this.humans.isEmpty) humanList else "") + houseRoomList
   }
   
   def addItem(item: Item) = {
-    this.items += item.name -> item
+    if(this.items.contains(item.name)) this.items(item.name) += item else this.items += item.name -> Buffer(item)
   }
   
   def addHuman(human: Human) = {
@@ -39,7 +45,19 @@ class Area(var name: String, var description: String) {
   
   def removeHuman(humanName: String) = this.humans.remove(humanName)
   
-  def removeItem(itemName: String) = this.items.remove(itemName)
+  def removeItem(itemName: String): Option[Item] = {
+    def deleteItem = {
+      val removedItem = this.items(itemName)(0)
+      this.items(itemName) -= removedItem
+      Some(removedItem)
+    }
+    if(this.items(itemName).size == 1) {
+      val itemInsideBuffer = this.items(itemName)(0)
+      this.items -= itemName
+      Some(itemInsideBuffer)
+    } else deleteItem
+    //this.items.remove(itemName)
+  }
   
   def contains(itemName: String) = this.items.contains(itemName)
   

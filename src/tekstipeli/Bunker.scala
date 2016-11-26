@@ -1,4 +1,5 @@
 package tekstipeli
+
 import scala.collection.mutable.Buffer
 import scala.collection.mutable.Map
 
@@ -7,9 +8,7 @@ class Bunker(var humans: Map[String, Human]) {
   
   def dailyReport = {
     println(humans)
-    story + humanReport + event
-    
-    
+    story + humanReport + event 
   }
   
   def story: String = {

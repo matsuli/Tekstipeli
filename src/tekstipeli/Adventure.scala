@@ -1,19 +1,21 @@
 package tekstipeli
+
 import scala.collection.mutable.Map
 import scala.collection.mutable.Buffer
+
 
 class Adventure {
 
   /** The title of the adventure game. */
   val title = "60 seconds"
     
-  private val hallway     = new Area("Hallway", "The Hallway")
-  private val livingroom  = new Area("Livingroom", "The Living Room")
-  private val kitchen     = new Area("Kitchen", "The Kitchen")
-  private val bedroom1    = new Area("First bedroom", "A Bedroom")
-  private val bedroom2    = new Area("Second bedroom", "A Bedroom")
-  private val toilet      = new Area("Toilet", "A Toilet")
-  private val destination = toilet
+  private val hallway      = new Area("Hallway", "The Hallway")
+  private val livingroom   = new Area("Livingroom", "The Living Room")
+  private val kitchen      = new Area("Kitchen", "The Kitchen")
+  private val bedroom1     = new Area("First bedroom", "A Bedroom")
+  private val bedroom2     = new Area("Second bedroom", "A Bedroom")
+  private val toilet       = new Area("Toilet", "A Toilet")
+  private val destination  = toilet
   
   private val cannedBeans  = new Item("Canned Beans", "A can of Beans", false)
   private val waterBottle  = new Item("Water Bottle", "A bottle of Water", false)
@@ -30,31 +32,22 @@ class Adventure {
   private val georg        = new Human("Georg")
   private val mats         = new Human("mats")
 
-     hallway.setNeighbors(Vector("livingroom"  -> livingroom,   "toilet" -> toilet                                                                  ))
-  livingroom.setNeighbors(Vector(   "bedroom1" -> bedroom1,   "bedroom2" -> bedroom2, "hallway" -> hallway, "kitchen" -> kitchen, "toilet" -> toilet))
-     kitchen.setNeighbors(Vector("livingroom"  -> livingroom                                                                                        ))
-    bedroom1.setNeighbors(Vector("livingroom"  -> livingroom, "bedroom2" -> bedroom2                                                                ))
-    bedroom2.setNeighbors(Vector("livingroom"  -> livingroom, "bedroom1" -> bedroom1                                                                ))
-      toilet.setNeighbors(Vector(    "hallway" -> hallway,  "livingroom" -> livingroom                                                              ))
-        
-        
-     hallway.setNeighbors(Vector("livingroom" -> livingroom,   "toilet" -> toilet                                                                  ))
-  livingroom.setNeighbors(Vector(   "bedroom1" -> bedroom1,   "bedroom2" -> bedroom2, "hallway" -> hallway, "kitchen" -> kitchen, "toilet" -> toilet))
-     kitchen.setNeighbors(Vector("livingroom" -> livingroom                                                                                        ))
-    bedroom1.setNeighbors(Vector("livingroom" -> livingroom, "bedroom2" -> bedroom2                                                                ))
-    bedroom2.setNeighbors(Vector("livingroom" -> livingroom, "bedroom1" -> bedroom1                                                                ))
-      toilet.setNeighbors(Vector(    "hallway" -> hallway,  "livingroom" -> livingroom                                                              ))
+     hallway.setNeighbors(Vector("livingroom"  -> livingroom , "toilet"     -> toilet                                                                  ))
+  livingroom.setNeighbors(Vector("bedroom1"    -> bedroom1   , "bedroom2"   -> bedroom2, "hallway" -> hallway, "kitchen" -> kitchen, "toilet" -> toilet))
+     kitchen.setNeighbors(Vector("livingroom"  -> livingroom                                                                                           ))
+    bedroom1.setNeighbors(Vector("livingroom"  -> livingroom , "bedroom2"   -> bedroom2                                                                ))
+    bedroom2.setNeighbors(Vector("livingroom"  -> livingroom , "bedroom1"   -> bedroom1                                                                ))
+      toilet.setNeighbors(Vector("hallway"     -> hallway    , "livingroom" -> livingroom                                                              ))
         
       toilet.addHuman(mats)
     bedroom1.addHuman(peter)
      kitchen.addHuman(georg)
-      
+
   private val rooms = Map[String, Area](hallway.name -> hallway, livingroom.name -> livingroom, kitchen.name -> kitchen, bedroom1.name -> bedroom1, bedroom2.name -> bedroom2, toilet.name -> toilet)
   private val items = Buffer(cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, waterBottle, axe, radio, medKit, map, flashlight, bugSpray, playingCards)
  
   /** The character that the player controls in the game. */
   val player = new Player(hallway)
-  
   val house = new House(rooms, player)
   val bunker = new Bunker(player.warnedHumans)
   
@@ -78,11 +71,7 @@ class Adventure {
 
   /** Returns a message that is to be displayed to the player at the beginning of the game. */
   def welcomeMessage = {
-    (if(house.distanceToItem("Radio") == 0) "pleb"
-    else if(house.distanceToItem("Radio") == 1) "beep boop"
-    else if(house.distanceToItem("Radio") == 2) "bööp beep"
-    else "wqr") +
-    "\nThe nuke is coming! Quick, you have 60 seconds to take everything you need!"
+    "You hear the radio buzzing " + (if(house.distanceToItem("Radio") == 0) "close by" else if(house.distanceToItem("Radio") == 1) "nearby" else "far away") + "."
   }
 
     

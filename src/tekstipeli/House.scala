@@ -1,7 +1,9 @@
 package tekstipeli
+
 import scala.collection.mutable.Buffer
 import scala.collection.mutable.Map
 import scala.util.Random
+
 
 class House(val rooms: Map[String, Area], val player: Player) {
   
