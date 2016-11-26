@@ -6,8 +6,8 @@ class Bunker(var humans: Map[String, Human]) {
   
   
   def dailyReport = {
-    
-    story + humans.values.toVector.foreach(_.report) + event
+    println(humans)
+    story + humanReport + event
     
     
   }
@@ -18,6 +18,13 @@ class Bunker(var humans: Map[String, Human]) {
    "Day 1 \n\nWe are now safe in the bunker. We could feel the ground shaking when the missile hit. Luckily we all made it." 
    
   }
+  
+  def humanReport = {
+    if(humans.nonEmpty) humans.values.toVector.foreach(_.report) else ""
+    
+  }
+  
+  
   
   def event: String = {
     

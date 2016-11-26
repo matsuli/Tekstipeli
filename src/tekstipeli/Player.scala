@@ -70,11 +70,10 @@ class Player(startingArea: Area) {
   }
 
   def warn(human: String) = {
-    if(currentLocation.humans.contains(human)) {
-      this.currentLocation.humans -= human
+    if(currentLocation.containsHuman(human)) {
       this.warnedHumans += human -> this.currentLocation.removeHuman(human).get
       "You warn " + human + ", he runs to the bunker."
-    } else human + "is not here!"
+    } else human + " is not here!"
     
     
     

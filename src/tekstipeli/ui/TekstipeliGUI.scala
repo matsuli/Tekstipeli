@@ -113,7 +113,7 @@ object TekstipeliGUI extends SimpleSwingApplication {
       } else {
         this.turnOutput.text = info + "\n\n" + this.game.goodbyeMessage
       }
-      this.locationInfo.text = this.player.location.fullDescription
+      this.locationInfo.text = if(game.turnCount < 5) this.player.location.fullDescription else game.bunker.dailyReport
       this.turnCounter.text = "Turns played: " + this.game.turnCount
     }
 
