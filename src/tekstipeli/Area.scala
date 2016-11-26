@@ -7,8 +7,8 @@ import scala.collection.mutable.Buffer
 class Area(var name: String, var description: String) {
   
   private val neighbors = Map[String, Area]()
-  val items = Map[String, Buffer[Item]]()
   private val humans = Map[String, Human]()
+  val items = Map[String, Buffer[Item]]()
   
   def neighboringAreas = this.neighbors.values.toVector
   
@@ -56,7 +56,6 @@ class Area(var name: String, var description: String) {
       this.items -= itemName
       Some(itemInsideBuffer)
     } else deleteItem
-    //this.items.remove(itemName)
   }
   
   def contains(itemName: String) = this.items.contains(itemName)

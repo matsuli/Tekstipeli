@@ -2,8 +2,9 @@ package tekstipeli
 
 import scala.collection.mutable.Buffer
 import scala.collection.mutable.Map
+import scala.util.Random
 
-class Bunker(var humans: Map[String, Human]) {
+class Bunker(val humans: Map[String, Human], val items: Map[String, Buffer[Item]]) {
   
   
   def dailyReport = {
@@ -25,13 +26,21 @@ class Bunker(var humans: Map[String, Human]) {
   
   
   def event: String = {
+    val randomSeed = new Random
     
     val ants = "There's a small problem... Apparently there was ants living in the bunker and they don't want us here.\nWhat should we do to them?"
     val knockGentle = "What? Did someone knock on the door? The knock was so gentle that we almost didn't hear it.\nShould we open?"
     val knockHard = "There is someone banging on the door. Do we dare open?"
     val screams = "Someone is screaming for help outside. Should we help?"
     
-    null
+    val events = Buffer(ants, knockGentle, knockHard, screams)
+    
+    def chooseEventRandom(events: Buffer[String]) = {
+      val randomizedEvents = randomSeed.shuffle(events)
+      randomizedEvents(0)
+    }
+    
+    chooseEventRandom(events)
   }
   
   def expedition(human: Human) = {

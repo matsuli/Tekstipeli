@@ -11,6 +11,8 @@ class Player(startingArea: Area) {
   private val carrying = Map[String, Buffer[Item]]()
   val warnedHumans = Map[String, Human]()
   
+  def carryingInventory = this.carrying
+  
   /** Determines if the player has indicated a desire to quit the game. */
   def hasQuit = this.quitCommandGiven
 
