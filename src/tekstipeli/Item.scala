@@ -3,9 +3,11 @@ package tekstipeli
 import scala.collection.mutable.Map
 
 
-class Item(val name: String, val description: String, private val capacity: Int) {
+class Item(val name: String, val description: String, private val capacity: Int, private val pickUp: Boolean) {
   
   val contains = Map[String, Item]()
+  
+  def canPickUp = this.pickUp
   
   def itemsInside = this.contains.keys.toVector
   

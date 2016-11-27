@@ -4,7 +4,7 @@ import scala.collection.mutable.Buffer
 import scala.collection.mutable.Map
 import scala.util.Random
 
-class Bunker(val humans: Map[String, Human], val items: Map[String, Buffer[Item]]) {
+class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buffer[Item]]) {
   
   
   def dailyReport = {

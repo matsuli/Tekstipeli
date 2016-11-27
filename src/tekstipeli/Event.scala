@@ -14,7 +14,7 @@ class Event(val name: String, val description: String, val bunker: Bunker, priva
     def itemStatus = {
       var itemStatus = ""
       for(currentItem <- usefullItems.keys.toVector) {
-      itemStatus += (if(bunker.items.contains(currentItem)) currentItem + "[ ]" else if (addedItems.contains(currentItem)) currentItem + "[v]" + ":" else currentItem + "[x]") + ":"
+      itemStatus += (if(bunker.depositedItems.contains(currentItem)) currentItem + "[ ]" else if (addedItems.contains(currentItem)) currentItem + "[v]" + ":" else currentItem + "[x]") + ":"
       }
       itemStatus.split(":").mkString(", ")
     }
@@ -42,9 +42,9 @@ class Event(val name: String, val description: String, val bunker: Bunker, priva
   def addRewards = {
     if(success) {
       for(item <- this.potentialRewards.values) {
-        if(this.bunker.items.contains(item.name)) {
-          this.bunker.items(item.name) +=  item
-        } else this.bunker.items += item.name -> Buffer(item)
+        if(this.bunker.depositedItems.contains(item.name)) {
+          this.bunker.depositedItems(item.name) +=  item
+        } else this.bunker.depositedItems += item.name -> Buffer(item)
       }
     }
   }
