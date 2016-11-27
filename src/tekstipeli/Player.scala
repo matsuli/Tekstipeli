@@ -63,7 +63,7 @@ class Player(startingArea: Area) {
     } else "You can't open that!"
     } else "I can't see " + itemName + "here."
   }
-
+  
   def drop(itemName: String) = {
     if(this.has(itemName)) {
       this.currentLocation.addItem(this.carrying(itemName)(0))
@@ -89,6 +89,7 @@ class Player(startingArea: Area) {
     } else "You need to be near the bunker to deposit items"
   }
   
+
   def examine(itemName: String): String = {
     if(this.has(itemName)) {
       if(itemName == "remote") {

@@ -7,7 +7,9 @@ package tekstipeli
 class Action(input: String) {
 
   private val commandText = input.trim.toLowerCase
-  private val verb        = commandText.takeWhile( _ != ' ' ).toLowerCase
+
+  val verb        = commandText.takeWhile( _ != ' ' ).toLowerCase
+
   private val modifiers   = commandText.drop(verb.length).trim.toLowerCase.split(' ').map( _.capitalize ).mkString(" ")
 
   
@@ -35,6 +37,21 @@ class Action(input: String) {
       Some(actor.inventory)
     } else if (this.verb == "warn") {
       Some(actor.warn(this.modifiers))
+    } else if (this.verb == "next") {
+      Some(actor.warn(this.modifiers))
+    } else if (this.verb == "feed") {
+      Some(actor.warn(this.modifiers))
+    } else {
+      None
+    }
+    
+  }
+  def executeBunker(actor: Bunker) = {                             
+
+    if (this.verb == "next") {
+      Some(actor.advanceDay)
+    } else if (this.verb == "use") {
+      Some(actor.useItem(this.modifiers))
     } else {
       None
     }
