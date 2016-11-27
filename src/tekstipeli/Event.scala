@@ -5,7 +5,7 @@ import scala.collection.mutable.Buffer
 import scala.util.Random
 
 
-class Event(val name: String, val description: String, val bunker: Bunker, private val usefullItems: Map[String, Item], private val potentialRewards: Map[String, Item]) {
+class Event(val name: String, val description: String, val bunker: Bunker, private val usefullItems: Buffer[Item], private val potentialRewards: Buffer[Item]) {
   
   private val addedItems = Map[String, Item]()
   private var success = false
@@ -13,8 +13,8 @@ class Event(val name: String, val description: String, val bunker: Bunker, priva
   def fullDescription = {
     def itemStatus = {
       var itemStatus = ""
-      for(currentItem <- usefullItems.keys.toVector) {
-      itemStatus += (if(bunker.items.contains(currentItem)) currentItem + "[ ]" else if (addedItems.contains(currentItem)) currentItem + "[v]" + ":" else currentItem + "[x]") + ":"
+      for(currentItem <- usefullItems) {
+      itemStatus += (if(bunker.items.contains(currentItem.name)) currentItem + "[ ]" else if (addedItems.contains(currentItem.name)) currentItem + "[v]" + ":" else currentItem + "[x]") + ":"
       }
       itemStatus.split(":").mkString(", ")
     }
@@ -41,7 +41,7 @@ class Event(val name: String, val description: String, val bunker: Bunker, priva
   
   def addRewards = {
     if(success) {
-      for(item <- this.potentialRewards.values) {
+      for(item <- this.potentialRewards) {
         if(this.bunker.items.contains(item.name)) {
           this.bunker.items(item.name) +=  item
         } else this.bunker.items += item.name -> Buffer(item)
