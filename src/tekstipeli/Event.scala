@@ -5,7 +5,7 @@ import scala.collection.mutable.Buffer
 import scala.util.Random
 
 
-class Event(val name: String, val description: String, val bunker: Bunker, private val usefullItems: Buffer[Item], private val potentialRewards: Buffer[Item]) {
+class Event(val name: String, val description: String, val bunker: Bunker, val usefullItems: Buffer[Item], private val potentialRewards: Buffer[Item], val outcomeSuccess: String, val outcomeFail: String) {
   
   private val addedItems = Map[String, Item]()
   private var success = false
@@ -49,7 +49,11 @@ class Event(val name: String, val description: String, val bunker: Bunker, priva
     }
   }
   
-  
+  def outcome = {
+    
+    if(success) outcomeSuccess else outcomeFail
+    
+  }
   
   
   

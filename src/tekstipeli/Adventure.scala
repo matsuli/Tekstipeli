@@ -98,7 +98,9 @@ class Adventure {
     * case, no turns elapse. */
   def playTurn(command: String) = {
     val action = new Action(command)
-    val outcomeReport = action.execute(this.player)
+    val outcomeReport = if(action.verb == "next" || action.verb == "use") {
+      action.executeBunker(this.bunker)
+    }else action.execute(this.player)
     if (outcomeReport.isDefined) { 
       this.turnCount += 1 
     }
