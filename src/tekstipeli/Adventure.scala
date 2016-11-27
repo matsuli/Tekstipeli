@@ -56,7 +56,7 @@ class Adventure {
   /** The character that the player controls in the game. */
   val player = new Player(hallway)
   val house  = new House(rooms, player)
-  val bunker = new Bunker(player.warnedHumans, player.carryingInventory, allItems)
+  val bunker = new Bunker(player.warnedHumans, bunkerArea.items, allItems)
   
   house.placeItems(items)
 

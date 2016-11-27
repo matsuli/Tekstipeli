@@ -12,7 +12,6 @@ class Player(startingArea: Area) {
   private val inventoryLimit = 4
   val warnedHumans = Map[String, Human]()
   
-  def carryingInventory = this.carrying
   
   /** Determines if the player has indicated a desire to quit the game. */
   def hasQuit = this.quitCommandGiven
@@ -74,9 +73,22 @@ class Player(startingArea: Area) {
   }
   
   def deposit = {
-    
+    if(this.currentLocation.name == "Livingroom") {
+      if(this.carrying.nonEmpty) {
+        val bunker = this.currentLocation.neighbors("Bunker")
+        val depositedItems = Buffer[Item]()
+        for(item <- this.carrying.values.flatten) {
+          if(bunker.contains(item.name)) {
+            bunker.items(item.name) += item
+          } else bunker.items += item.name -> Buffer(item)
+          if(this.carrying(item.name).size == 1) this.carrying -= item.name else this.carrying(item.name) -= this.carrying(item.name)(0)
+          depositedItems += item
+        }
+        "You deposited: " + depositedItems.mkString(", ")
+      } else "Try picking up some items first"
+    } else "You need to be near the bunker to deposit items"
   }
-
+  
   def examine(itemName: String): String = {
     if(this.has(itemName)) {
       if(itemName == "remote") {
@@ -93,7 +105,7 @@ class Player(startingArea: Area) {
     if(this.carrying.nonEmpty) {
       var currentItems = ""
       for(pair <- this.carrying) {
-        currentItems += pair._1 + "\n"
+        currentItems += pair._1 + (if(pair._2.size > 1) " x" + pair._2.size.toString else "") +  "\n"
       }
       "You are carrying:\n" + currentItems
     } else "You are empty-handed."

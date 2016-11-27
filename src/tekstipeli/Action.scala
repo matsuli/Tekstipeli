@@ -27,6 +27,8 @@ class Action(input: String) {
       Some(actor.open(this.modifiers))
     } else if (this.verb == "drop") {
       Some(actor.drop(this.modifiers))
+    } else if (this.verb == "deposit") {
+      Some(actor.deposit)
     } else if (this.verb == "examine") {
       Some(actor.examine(this.modifiers))
     } else if (this.verb == "inventory") {
