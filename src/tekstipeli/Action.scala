@@ -6,7 +6,7 @@ package tekstipeli
   * @param input  a textual in-game command such as "go east" or "rest" */
 class Action(input: String) {
 
-  private val commandText = input.trim
+  private val commandText = input.trim.toLowerCase
   private val verb        = commandText.takeWhile( _ != ' ' ).toLowerCase
   private val modifiers   = commandText.drop(verb.length).trim.toLowerCase.split(' ').map( _.capitalize ).mkString(" ")
 

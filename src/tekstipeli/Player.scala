@@ -9,6 +9,7 @@ class Player(startingArea: Area) {
   private var currentLocation = startingArea        // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false              // one-way flag
   private val carrying = Map[String, Buffer[Item]]()
+  private val inventoryLimit = 4
   val warnedHumans = Map[String, Human]()
   
   def carryingInventory = this.carrying
@@ -20,9 +21,13 @@ class Player(startingArea: Area) {
   def location = this.currentLocation
   
   def go(direction: String) = {
-    val destination = this.location.neighbor(direction)
-    this.currentLocation = destination.getOrElse(this.currentLocation) 
-    if (destination.isDefined) "You go " + direction + "." else "You can't go " + direction + "."
+    if(direction == "Bunker") {
+      "You shouldn't enter the bunker yet. Perhaps try depositing some items. You wouldn't fight a real apocalypse empty-handed, would you?"
+    } else {
+      val destination = this.location.neighbor(direction)
+      this.currentLocation = destination.getOrElse(this.currentLocation) 
+      if (destination.isDefined) "You go " + direction + "." else "You can't go " + direction + "."
+    }
   }
 
   def rest() = {
@@ -35,12 +40,14 @@ class Player(startingArea: Area) {
   }
 
   def get(itemName: String) = {
-    if(currentLocation.contains(itemName)) {
+    if(currentLocation.contains(itemName) && this.carrying.values.flatten.size < this.inventoryLimit && this.currentLocation.items(itemName)(0).canPickUp) {
       if(this.carrying.contains(itemName)) {
         this.carrying(itemName) += this.currentLocation.removeItem(itemName).get
       } else this.carrying += itemName -> Buffer(this.currentLocation.removeItem(itemName).get)
       "You pick up the " + itemName + "."
-    } else "There is no " + itemName + " here to pick up."
+    } else if(this.carrying.values.flatten.size >= this.inventoryLimit) "You can't carry anymore items."
+      else if(!this.currentLocation.items(itemName)(0).canPickUp) "You can't pick up that!"
+      else "There is no " + itemName + " here to pick up."
   }
   
   def open(itemName: String) = {
@@ -56,6 +63,12 @@ class Player(startingArea: Area) {
       "You open the " + itemName + ". Out falls some items."
     } else "You can't open that!"
     } else "I can't see " + itemName + "here."
+  }
+  
+  
+  def deposit = {
+    
+    
   }
 
   def drop(itemName: String) = {

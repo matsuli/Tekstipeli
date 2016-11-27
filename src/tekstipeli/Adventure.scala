@@ -15,19 +15,22 @@ class Adventure {
   private val masterBedroom = new Area("First bedroom", "A Bedroom")
   private val bedroom       = new Area("Second bedroom", "A Bedroom")
   private val toilet        = new Area("Toilet", "A Toilet")
-  private val destination   = toilet
+  private val bunkerArea    = new Area("Bunker", "The Bunker")
+  private val destination   = bunkerArea
   
-  private val cannedBeans   = new Item("Canned Beans", "A can of Beans", 0)
-  private val waterBottle   = new Item("Water Bottle", "A bottle of Water", 0)
-  private val axe           = new Item("Axe", "An Axe", 0)
-  private val radio         = new Item("Radio", "A Radio", 0)
-  private val gasMask       = new Item("Gas Mask", "A Gas Mask", 0)
-  private val medkit        = new Item("Medkit", "A Medkit", 0)
-  private val map           = new Item("Map", "A Map", 0)
-  private val flashlight    = new Item("Flashlight", "A Flashlight", 0)
-  private val bugspray      = new Item("Bugspray", "A bottle of Bugspray", 0)
-  private val playingCards  = new Item("Playingcards", "A deck of cards", 0)
-  private val closet        = new Item("Closet", "An openable Closet", 5)
+  private val cannedBeans   = new Item("Canned Beans", "A can of Beans", 0, true)
+  private val waterBottle   = new Item("Water Bottle", "A bottle of Water", 0, true)
+  private val axe           = new Item("Axe", "An Axe", 0, true)
+  private val radio         = new Item("Radio", "A Radio", 0, true)
+  private val gasMask       = new Item("Gas Mask", "A Gas Mask", 0, true)
+  private val medKit        = new Item("Medkit", "A Medkit", 0, true)
+  private val map           = new Item("Map", "A Map", 0, true)
+  private val flashlight    = new Item("Flashlight", "A Flashlight", 0, true)
+  private val bugSpray      = new Item("Bugspray", "A bottle of Bugspray", 0, true)
+  private val playingCards  = new Item("Playingcards", "A deck of cards", 0, true)
+  private val suitcase      = new Item("Suitcase", "A suitcase", 1, true)
+  private val closet        = new Item("Closet", "An openable Closet", 3, false)
+  private val smallcloset   = new Item("Closet", "An openable Closet", 2, false)
   
   private val peter         = new Human("Peter")
   private val georg         = new Human("Georg")
@@ -45,9 +48,9 @@ class Adventure {
      kitchen.addHuman(georg)
 
   private val rooms = Map[String, Area](hallway.name -> hallway, livingroom.name -> livingroom, kitchen.name -> kitchen, masterBedroom.name -> masterBedroom, bedroom.name -> bedroom, toilet.name -> toilet)
-  private val items = Buffer(cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, waterBottle, axe, radio, medkit, map, flashlight, bugspray, playingCards, closet)
+  private val items = Buffer(cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, waterBottle, axe, radio, medKit, map, flashlight, bugSpray, playingCards, closet)
   private val allItems = Map[String, Item](cannedBeans.name -> cannedBeans, waterBottle.name -> waterBottle, axe.name -> axe, radio.name -> radio, gasMask.name -> gasMask,
-                                medkit.name -> medkit, map.name -> map, flashlight.name -> flashlight, bugspray.name -> bugspray, playingCards.name -> playingCards, closet.name -> closet) 
+                                medKit.name -> medKit, map.name -> map, flashlight.name -> flashlight, bugSpray.name -> bugSpray, playingCards.name -> playingCards, closet.name -> closet) 
   
   /** The character that the player controls in the game. */
   val player = new Player(hallway)
