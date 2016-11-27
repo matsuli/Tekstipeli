@@ -11,7 +11,6 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
   private var day = 0
   
   def dailyReport = {
-    println(humans)
     story + humanReport + yesterdayEvent + todaysEvent
   }
   
