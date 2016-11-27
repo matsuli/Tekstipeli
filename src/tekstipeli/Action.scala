@@ -7,7 +7,9 @@ package tekstipeli
 class Action(input: String) {
 
   private val commandText = input.trim.toLowerCase
+
   val verb        = commandText.takeWhile( _ != ' ' ).toLowerCase
+
   private val modifiers   = commandText.drop(verb.length).trim.toLowerCase.split(' ').map( _.capitalize ).mkString(" ")
 
   

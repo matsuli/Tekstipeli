@@ -8,6 +8,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
   
   private var yesterdayEvent: Option[Event] = None
   private var todaysEvent: Option[Event] = None
+
   private var day = 1
   
   def dailyReport = {
@@ -52,6 +53,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
     
   }
   
+
   def useItem(itemName: String) = {
     
     if(depositedItems.contains(itemName)) {
@@ -60,6 +62,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
       ""
      } else ""
     } else "You don't have " + itemName + " in the bunker"
+
   }
   
   
@@ -67,6 +70,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
   def event: Event = {
     val randomSeed = new Random
     
+
     val antsEvent        = new Event("ants", "\nThere's a small problem... Apparently there was ants living in the bunker and they don't want us here.\nWhat should we do to them?",
                                      this, Buffer(allItems("Bugspray")), Buffer(allItems("Water Bottle")),
                                      "\nLuckily we hade the bugspray. Now those pesky ants won't disturb us. We also found a water bottle in their colony",
@@ -78,6 +82,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
                                      "\nWe opened the door and saw someone running away, he probably got scared of the axe.","\nAfter a while the knocks just stopped.")
     val screamsEvent     = new Event("screams", "\nSomeone is screaming for help outside. Take the flashlight and go help?", this, Buffer(allItems("Flashlight")), Buffer(allItems("Bugspray")),
                                      "\nWe ran outside and saw a dog howling, guess it was the dog we heard. We saw a a bottle of bugspray on the ground and picked it up.","\nWe heard a explosion outside, after that there was silence.")
+
     
     val events = Buffer(antsEvent, knockGentleEvent, knockHardEvent, screamsEvent)
     

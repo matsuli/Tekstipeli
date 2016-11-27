@@ -36,21 +36,26 @@ class Adventure {
   private val georg         = new Human("Georg")
   private val mats          = new Human("Mats")
 
-     hallway.setNeighbors(Vector("Livingroom"      -> livingroom,         "Toilet" -> toilet                                                                 ))
-  livingroom.setNeighbors(Vector("Master Bedroom"  -> masterBedroom,     "Bedroom" -> bedroom, "Hallway" -> hallway, "Kitchen" -> kitchen, "Toilet" -> toilet))
-     kitchen.setNeighbors(Vector("Livingroom"      -> livingroom                                                                                             ))
-    masterBedroom.setNeighbors(Vector("Livingroom" -> livingroom,        "Bedroom" -> bedroom                                                                ))
-    bedroom.setNeighbors(Vector("Livingroom"       -> livingroom, "Master Bedroom" -> masterBedroom                                                          ))
-      toilet.setNeighbors(Vector("Hallway"         -> hallway,        "Livingroom" -> livingroom                                                             ))
-       
-      toilet.addHuman(mats)
+
+          hallway.setNeighbors(Vector("Livingroom"     -> livingroom     , "Toilet"         -> toilet                                                                                          ))
+       livingroom.setNeighbors(Vector("Master Bedroom" -> masterBedroom  , "Bedroom"        -> bedroom, "Hallway" -> hallway, "Kitchen" -> kitchen, "Toilet" -> toilet, "Bunker" -> bunkerArea ))
+          kitchen.setNeighbors(Vector("Livingroom"     -> livingroom                                                                                                                           ))
+    masterBedroom.setNeighbors(Vector("Livingroom"     -> livingroom     , "Bedroom"        -> bedroom                                                                                         ))
+          bedroom.setNeighbors(Vector("Livingroom"     -> livingroom     , "Master Bedroom" -> masterBedroom                                                                                   ))
+           toilet.setNeighbors(Vector("Hallway"        -> hallway        , "Livingroom"     -> livingroom                                                                                      ))
+        
+           toilet.addHuman(mats)
+
     masterBedroom.addHuman(peter)
-     kitchen.addHuman(georg)
+          kitchen.addHuman(georg)
 
   private val rooms = Map[String, Area](hallway.name -> hallway, livingroom.name -> livingroom, kitchen.name -> kitchen, masterBedroom.name -> masterBedroom, bedroom.name -> bedroom, toilet.name -> toilet)
-  private val items = Buffer(cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, waterBottle, axe, radio, medKit, map, flashlight, bugSpray, playingCards, closet)
+
+  private val items = Buffer(cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, waterBottle, waterBottle, waterBottle, waterBottle, waterBottle, waterBottle, axe, radio, medKit, medKit, map, flashlight, bugSpray, playingCards, closet, smallcloset, suitcase)
   private val allItems = Map[String, Item](cannedBeans.name -> cannedBeans, waterBottle.name -> waterBottle, axe.name -> axe, radio.name -> radio, gasMask.name -> gasMask,
-                                medKit.name -> medKit, map.name -> map, flashlight.name -> flashlight, bugSpray.name -> bugSpray, playingCards.name -> playingCards, closet.name -> closet) 
+                                medKit.name -> medKit, map.name -> map, flashlight.name -> flashlight, bugSpray.name -> bugSpray, playingCards.name -> playingCards, closet.name -> closet)
+  
+
   
   /** The character that the player controls in the game. */
   val player = new Player(hallway)

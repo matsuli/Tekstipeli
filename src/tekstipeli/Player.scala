@@ -79,6 +79,8 @@ class Player(startingArea: Area) {
     } else "You don't have that!"
   }
   
+
+
   def examine(itemName: String): String = {
     if(this.has(itemName)) {
       if(itemName == "remote") {
