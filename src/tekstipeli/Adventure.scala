@@ -49,11 +49,14 @@ class Adventure {
 
   private val rooms = Map[String, Area](hallway.name -> hallway, livingroom.name -> livingroom, kitchen.name -> kitchen, masterBedroom.name -> masterBedroom, bedroom.name -> bedroom, toilet.name -> toilet)
   private val items = Buffer(cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, waterBottle, waterBottle, waterBottle, waterBottle, waterBottle, waterBottle, axe, radio, medKit, medKit, map, flashlight, bugSpray, playingCards, closet, smallcloset, suitcase)
- 
+  private val allItems = Map[String, Item](cannedBeans.name -> cannedBeans, waterBottle.name -> waterBottle, axe.name -> axe, radio.name -> radio, gasMask.name -> gasMask,
+                                medKit.name -> medKit, map.name -> map, flashlight.name -> flashlight, bugSpray.name -> bugSpray, playingCards.name -> playingCards, closet.name -> closet)
+  
+  
   /** The character that the player controls in the game. */
   val player = new Player(hallway)
   val house  = new House(rooms, player)
-  val bunker = new Bunker(player.warnedHumans, player.carryingInventory)
+  val bunker = new Bunker(player.warnedHumans, player.carryingInventory, allItems)
   
   house.placeItems(items)
 
