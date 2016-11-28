@@ -7,9 +7,7 @@ package tekstipeli
 class Action(input: String) {
 
   private val commandText = input.trim.toLowerCase
-
-  val verb        = commandText.takeWhile( _ != ' ' ).toLowerCase
-
+          val verb        = commandText.takeWhile( _ != ' ' ).toLowerCase
   private val modifiers   = commandText.drop(verb.length).trim.toLowerCase.split(' ').map( _.capitalize ).mkString(" ")
 
   
@@ -17,12 +15,17 @@ class Action(input: String) {
     * that the command was understood. Returns a description of what happened as a result 
     * of the action (such as "You go west."). The description is returned in an `Option` 
     * wrapper; if the command was not recognized, `None` is returned. */
-  def execute(actor: Player) = {                             
+  
+  def execute(actor: Player) {
+    if (this.verb == "quit") {
+      Some(actor.quit())
+    }
+  }
+  
+  def executeHouse(actor: House) = {                             
 
     if (this.verb == "go") {
       Some(actor.go(this.modifiers))
-    } else if (this.verb == "quit") {
-      Some(actor.quit())
     } else if (this.verb == "get") {
       Some(actor.get(this.modifiers))
     } else if (this.verb == "open") {
@@ -31,8 +34,6 @@ class Action(input: String) {
       Some(actor.drop(this.modifiers))
     } else if (this.verb == "deposit") {
       Some(actor.deposit)
-    } else if (this.verb == "examine") {
-      Some(actor.examine(this.modifiers))
     } else if (this.verb == "inventory") {
       Some(actor.inventory)
     } else if (this.verb == "warn") {
@@ -46,6 +47,7 @@ class Action(input: String) {
     }
     
   }
+  
   def executeBunker(actor: Bunker) = {                             
 
     if (this.verb == "next") {

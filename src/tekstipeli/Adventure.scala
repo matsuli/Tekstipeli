@@ -58,9 +58,9 @@ class Adventure {
 
   
   /** The character that the player controls in the game. */
-  val player = new Player(hallway)
-  val house  = new House(rooms, player)
-  val bunker = new Bunker(player.warnedHumans, bunkerArea.items, allItems)
+  val player = new Player
+  val house  = new House(rooms, hallway)
+  val bunker = new Bunker(house.warnedHumans, bunkerArea.items, allItems)
   
   house.placeItems(items)
 
@@ -72,8 +72,8 @@ class Adventure {
 
   /** Determines if the adventure is complete, that is, if the player has won. */
   def isComplete = {
-    this.player.location == this.destination &&
-    (this.player.has("battery") && this.player.has("remote"))
+    house.location == this.destination &&
+    (this.house.has("battery") && house.has("remote"))
     
   }
 
@@ -105,7 +105,7 @@ class Adventure {
     val action = new Action(command)
     val outcomeReport = if(action.verb == "next" || action.verb == "use") {
       action.executeBunker(this.bunker)
-    }else action.execute(this.player)
+    } else action.executeHouse(this.house)
     if (outcomeReport.isDefined) { 
       this.turnCount += 1 
     }

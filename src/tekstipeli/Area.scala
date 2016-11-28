@@ -4,7 +4,7 @@ import scala.collection.mutable.Map
 import scala.collection.mutable.Buffer
 
 
-class Area(var name: String, var description: String) {
+class Area(val name: String, val description: String) {
   
   val neighbors = Map[String, Area]()
   private val humans = Map[String, Human]()
