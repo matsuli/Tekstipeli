@@ -54,6 +54,12 @@ class Action(input: String) {
       Some(actor.advanceDay)
     } else if (this.verb == "use") {
       Some(actor.useItem(this.modifiers))
+    } else if (this.verb == "open") {
+      Some(actor.useItem(this.modifiers))
+    } else if (this.verb == "feed") {
+      Some(actor.feed)
+    } else if (this.verb == "give") {
+      Some(actor.give)
     } else {
       None
     }

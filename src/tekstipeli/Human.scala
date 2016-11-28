@@ -16,18 +16,17 @@ class Human(val name: String) {
     if (onExpedition) daysLeftOfExpedition -= 1
   }
   
-  def eat(item: Item) = {
-    if(item.name == "cannedBeans") {
+  def eat = {
+    //if(item.name == "Canned Beans") {
       this.hunger = 7
-      this.name + "ate the can of beans and is satisfied"
-    } else "You can't eat " + item.name + "!"
+    //} else "You can't eat " + item.name + "!"
   }
   
-  def drink(item: Item) = {
-    if (item.name == "water") {
+  def drink = {
+    //if (item.name == "water") {
       this.thirst = 4
-      this.name + "drank the water and feels refreshed!"
-    } else "You can't drink that!"
+   //   this.name + "drank the water and feels refreshed!"
+    //} else "You can't drink that!"
   }
   
   def heal(item: Item) = {

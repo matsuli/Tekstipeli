@@ -31,6 +31,7 @@ class Adventure {
   private val suitcase      = new Item("Suitcase", "A suitcase", 1, true)
   private val closet        = new Item("Closet", "An openable Closet", 3, false)
   private val smallcloset   = new Item("Small Closet", "An openable Closet", 2, false)
+  private val door          = new Item("Door", "A ghost item", 0, false)
   
   private val peter         = new Human("Peter")
   private val georg         = new Human("Georg")
@@ -53,7 +54,7 @@ class Adventure {
 
   private val items = Buffer(cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, waterBottle, waterBottle, waterBottle, waterBottle, waterBottle, waterBottle, axe, radio, medKit, medKit, map, flashlight, bugSpray, playingCards, closet, smallcloset, suitcase)
   private val allItems = Map[String, Item](cannedBeans.name -> cannedBeans, waterBottle.name -> waterBottle, axe.name -> axe, radio.name -> radio, gasMask.name -> gasMask,
-                                medKit.name -> medKit, map.name -> map, flashlight.name -> flashlight, bugSpray.name -> bugSpray, playingCards.name -> playingCards, closet.name -> closet)
+                                medKit.name -> medKit, map.name -> map, flashlight.name -> flashlight, bugSpray.name -> bugSpray, playingCards.name -> playingCards, closet.name -> closet, door.name -> door)
   
 
   
@@ -104,7 +105,7 @@ class Adventure {
     * case, no turns elapse. */
   def playTurn(command: String) = {
     val action = new Action(command)
-    val outcomeReport = if(action.verb == "next" || action.verb == "use") {
+    val outcomeReport = if(turnCount < 1) {
       action.executeBunker(this.bunker)
     } else action.executeHouse(this.house)
     if (outcomeReport.isDefined) { 

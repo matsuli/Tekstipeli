@@ -6,17 +6,21 @@ import scala.util.Random
 
 
 
-class Event(val name: String, val description: String, val bunker: Bunker, val usefullItems: Buffer[Item], private val potentialRewards: Buffer[Item], val outcomeSuccess: String, val outcomeFail: String) {
+class Event(val name: String, val description: String, val bunker: Bunker, val usefullItems: Buffer[Item], private val potentialRewards: Buffer[Item], val outcomeSuccess: String, val outcomeFail: String, val outcomeAlmost: String) {
 
   
   private val addedItems = Map[String, Item]()
-  private var success = false
+  var success = false
+  private var almost = false
   
   def fullDescription = {
     def itemStatus = {
       var itemStatus = ""
       for(currentItem <- usefullItems) {
-      itemStatus += (if(bunker.depositedItems.contains(currentItem.name)) currentItem + "[ ]" else if (addedItems.contains(currentItem.name)) currentItem + "[v]" + ":" else currentItem + "[x]") + ":"
+      itemStatus += (if(bunker.depositedItems.contains(currentItem.name)) currentItem + "[ ]" 
+                     else if (addedItems.contains(currentItem.name) && currentItem.name != "Door") currentItem + "[v]" + ":" 
+                     else if(currentItem.name == "Door" ) "" 
+                     else currentItem + "[x]") + ":"
       }
       itemStatus.split(":").mkString(", ")
     }
@@ -25,14 +29,20 @@ class Event(val name: String, val description: String, val bunker: Bunker, val u
   }
   
   def addItem(item: Item) = {
-    if(this.usefullItems.contains(item.name)) {
+    if(this.usefullItems.contains(item)) {
       this.addedItems += item.name -> item
-      "You used " + item.name + "."
-    } else "That won't be of any help"
+      if(item.name == "Door") "" else "You used " + item.name + "."
+    } else {
+      "That won't be of any help"
+    }
   }
   
   def completionStatus = {
-    if(this.addedItems.size == this.usefullItems.size) {
+    if(this.addedItems.contains("Door") && this.addedItems.size == this.usefullItems.size) {
+      success = true
+    } else if(this.addedItems.contains("Door") && (this.addedItems.size < this.usefullItems.size)) {
+      almost = true
+    } else if(this.addedItems.size == this.usefullItems.size) {
       success = true
     } else if (0 < this.addedItems.size && this.addedItems.size < this.usefullItems.size) {
       val randomSeed = new Random
@@ -42,7 +52,7 @@ class Event(val name: String, val description: String, val bunker: Bunker, val u
   }
   
   def addRewards = {
-    if(success) {
+    if(success == true) {
       for(item <- this.potentialRewards) {
         if(this.bunker.depositedItems.contains(item.name)) {
           this.bunker.depositedItems(item.name) +=  item
@@ -52,8 +62,8 @@ class Event(val name: String, val description: String, val bunker: Bunker, val u
   }
   
   def outcome = {
-    
-    if(success) outcomeSuccess else outcomeFail
+
+    if(success) outcomeSuccess else if(almost) outcomeAlmost else outcomeFail
     
   }
   
