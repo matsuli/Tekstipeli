@@ -30,7 +30,7 @@ class Adventure {
   private val playingCards  = new Item("Playingcards", "A deck of cards", 0, true)
   private val suitcase      = new Item("Suitcase", "A suitcase", 1, true)
   private val closet        = new Item("Closet", "An openable Closet", 3, false)
-  private val smallcloset   = new Item("Closet", "An openable Closet", 2, false)
+  private val smallcloset   = new Item("Small Closet", "An openable Closet", 2, false)
   
   private val peter         = new Human("Peter")
   private val georg         = new Human("Georg")
@@ -65,7 +65,7 @@ class Adventure {
   house.placeItems(items)
 
   /** The number of turns that have passed since the start of the game. */
-  var turnCount = 0
+  var turnCount = 21
   /** The maximum number of turns that this adventure game allows before time runs out. */
   val timeLimit = 40 
 
@@ -82,7 +82,8 @@ class Adventure {
 
   /** Returns a message that is to be displayed to the player at the beginning of the game. */
   def welcomeMessage = {
-    "You hear the radio buzzing " + (if(house.distanceToItem("Radio") == 0) "close by" else if(house.distanceToItem("Radio") == 1) "nearby" else "far away") + "."
+    "You hear the radio " + (if(house.distanceToItem("Radio") == 0) "blaring a few feet away." else if(house.distanceToItem("Radio") == 1) "broadcast muffled nearby." else "buzzing far away.") + " 'bzrr' This is a w..rni.. message: Nuclear launch detected 'shr'. Get to a sh....." + 
+    "\nYou couldn't catch the message completely, but the nuke seems to be heading your way. You better hurry up! Collect the items you need and head to the bunker. Oh, and maybe warn the others."
   }
 
     
@@ -107,7 +108,7 @@ class Adventure {
       action.executeBunker(this.bunker)
     } else action.executeHouse(this.house)
     if (outcomeReport.isDefined) { 
-      this.turnCount += 1 
+      this.turnCount -= 1 
     }
     outcomeReport.getOrElse("Unknown command: \"" + command + "\".")
   }

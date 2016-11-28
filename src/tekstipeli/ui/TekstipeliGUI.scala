@@ -113,8 +113,8 @@ object TekstipeliGUI extends SimpleSwingApplication {
       } else {
         this.turnOutput.text = info + "\n\n" + this.game.goodbyeMessage
       }
-      this.locationInfo.text = if(game.turnCount < 21) game.house.location.fullDescription else game.bunker.dailyReport
-      this.turnCounter.text = "Turns played: " + this.game.turnCount
+      this.locationInfo.text = if(game.turnCount > 0) game.house.location.fullDescription else game.bunker.dailyReport
+      this.turnCounter.text = if(game.turnCount > 0) "Turns left: " + this.game.turnCount else "Days survived: " + this.game.turnCount.abs
     }
 
     

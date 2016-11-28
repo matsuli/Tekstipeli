@@ -56,7 +56,7 @@ class House(val rooms: Map[String, Area], startingArea: Area) {
   
   def go(direction: String) = {
     if(direction == "Bunker") {
-      "You shouldn't enter the bunker yet. Perhaps try depositing some items. You wouldn't fight a real apocalypse empty-handed, would you?"
+      "You shouldn't enter the bunker yet. There's plenty of time left! Don't forget your suitcase. You wouldn't fight a real apocalypse without it, would you?"
     } else {
       val destination = this.location.neighbor(direction)
       this.currentLocation = destination.getOrElse(this.currentLocation) 

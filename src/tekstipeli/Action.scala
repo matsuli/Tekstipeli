@@ -26,7 +26,7 @@ class Action(input: String) {
 
     if (this.verb == "go") {
       Some(actor.go(this.modifiers))
-    } else if (this.verb == "get") {
+    } else if (this.verb == "get" || this.verb == "take") {
       Some(actor.get(this.modifiers))
     } else if (this.verb == "open") {
       Some(actor.open(this.modifiers))
