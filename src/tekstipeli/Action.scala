@@ -16,9 +16,11 @@ class Action(input: String) {
     * of the action (such as "You go west."). The description is returned in an `Option` 
     * wrapper; if the command was not recognized, `None` is returned. */
   
-  def execute(actor: Player) {
+  def execute(actor: Player) = {
     if (this.verb == "quit") {
       Some(actor.quit())
+    } else {
+      None
     }
   }
   
@@ -37,10 +39,6 @@ class Action(input: String) {
     } else if (this.verb == "inventory") {
       Some(actor.inventory)
     } else if (this.verb == "warn") {
-      Some(actor.warn(this.modifiers))
-    } else if (this.verb == "next") {
-      Some(actor.warn(this.modifiers))
-    } else if (this.verb == "feed") {
       Some(actor.warn(this.modifiers))
     } else {
       None

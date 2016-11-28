@@ -8,7 +8,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
   
   private var yesterdayEvent: Option[Event] = None
   private var todaysEvent: Option[Event] = None
-
+  private var haveRadio = this.depositedItems.contains("Radio")
   private var day = 1
   
   def dailyReport = {
@@ -123,19 +123,52 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
                                       "\nWe walked around the quarter and everything was destroyed. Atleast we found food!",
                                       "\nYeah, maybe we shouldn't take any risks.", "")
     
-    val expeditionEvent    = new Event("expedition", "\nShould we go on a expedition? Only on a short one. Please. We could take the map with us?", this, Buffer(allItems("Map")), Buffer(allItems("Water Bottle")),
+    val expeditionEvent    = new Event("expedition", "\nShould we go on a expedition? Only on a short one. Please. We could take the map with us?", this, Buffer(allItems("Map")), Buffer(allItems("Water Bottle"), allItems("Axe")),
                                       "\nThanks to the map we could navigate around in the city. We didn't see any signs of life... but we found a bottle of water.",
                                       "\nYeah, maybe we shouldn't take any risks.", "")
     
+    val militaryTreesEvent    = new Event("militaryTrees", "\nThe military said on the radio that you should go cut down some trees nearby your shelter." + (if(!haveRadio) "Oh, we don't have a radio. Worth a shot anyways")+ "That way they can know where you are. Take the axe and go cut some trees?", this, Buffer(allItems("Axe")), Buffer(),
+                                      "\nWe managed to cut down some trees in the park nearby, hopefully the military will spot it.",
+                                      "\nMaybe some other day.", "")
     
-    val events = Buffer(antsEvent, knockGentleEvent, knockHardEvent, screamsEvent, booringEvent, expeditionGasEvent, expeditionEvent)
+    val militaryFlashlightEvent = new Event("militaryFlashlight", "\nThe military said on the radio that they will do a fly by over our area during the night." + (if(!haveRadio) "Oh, we don't have a radio. Worth a shot anyways") + "Take the flashlight and go out?", this, Buffer(allItems("Flashlight")), Buffer(),
+                                      "\nThey did see us! We will be rescued soon...",
+                                      "\nMaybe some other day.", "")
+    
+    val rescuedEvent            = new Event("rescuedEvent", "\n" + (if(!haveRadio) "Oh, we don't have a radio. Worth a shot anyways") + "Take the flashlight and go out?", this, Buffer(allItems("Flashlight")), Buffer(),
+                                      "\nThey did see us! We will be rescued soon...",
+                                      "\nMaybe some other day.", "")
+    
+    val noEvent                 = new Event("noEvent", "\nThere is nothing special to report today.", this, Buffer(), Buffer(), "", "", "")
+    
+    val militaryEvents = Buffer(militaryTreesEvent, militaryFlashlightEvent)
+    val eventsAvailable = Buffer(antsEvent, knockGentleEvent, knockHardEvent, screamsEvent, booringEvent, expeditionGasEvent, expeditionEvent)
+    val eventsOnHold = Buffer[Event]()
     
     def chooseEventRandom(events: Buffer[Event]) = {
+      if(eventsAvailable.isEmpty) {
+        for(currentEvent <- eventsOnHold) {
+          eventsAvailable += currentEvent 
+          eventsOnHold -= currentEvent
+        }
+      }
       val randomizedEvents = randomSeed.shuffle(events)
-      randomizedEvents(0)
+      val roll = randomSeed.nextInt(2)
+      if(roll == 0) randomizedEvents(0) else noEvent
     }
     
-    chooseEventRandom(events)
+    if(day > 10) {
+      for(currentEvent <- militaryEvents) {
+        eventsAvailable += currentEvent
+      }
+    }
+    
+    if(day > 35) eventsAvailable += rescuedEvent
+    
+    val chosenEvent = chooseEventRandom(eventsAvailable)
+    eventsAvailable -= chosenEvent
+    eventsOnHold += chosenEvent
+    chosenEvent
   }
   
   def expedition(human: Human) = {

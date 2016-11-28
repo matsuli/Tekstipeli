@@ -105,11 +105,12 @@ class Adventure {
     * case, no turns elapse. */
   def playTurn(command: String) = {
     val action = new Action(command)
-    val outcomeReport = if(turnCount < 1) {
+    val outcomeReport = if(action.verb == "quit") action.execute(this.player)
+      else if(turnCount < 1) {
       action.executeBunker(this.bunker)
-    } else action.executeHouse(this.house)
+    } else action.executeHouse(this.house) 
     if (outcomeReport.isDefined) { 
-      this.turnCount -= 1 
+      this.turnCount -= 1
     }
     outcomeReport.getOrElse("Unknown command: \"" + command + "\".")
   }
