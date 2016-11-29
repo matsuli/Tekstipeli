@@ -105,7 +105,9 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
     private val militaryTreesEvent    = new Event("militaryTrees", "\nThe military said on the radio that you should go cut down some trees nearby your shelter." + (if(!haveRadio) "Oh, we don't have a radio. Did Timmy say that? ")+ "That way they can know where you are. Take the axe and go cut some trees?", this, Buffer(allItems("Axe")), Buffer(allItems("Water Bottle"), allItems("Water Bottle")),
                                       "\nWe managed to cut down some trees in the park nearby, hopefully the military will spot it.",
                                       "\nMaybe some other day.", "")
+
     private val militaryFlashlightEvent = new Event("militaryFlashlight", "\nThe military informed on the radio that they will do a fly by over our area during the night." + (if(!haveRadio) "Hmm..we don't have a radio. Must have been the canned beans I ate. ") + "Take the flashlight and go out?", this, Buffer(allItems("Flashlight")), Buffer(allItems("Water Bottle"), allItems("Canned Beans")),
+
                                       "\nWe saw the plane, and tried our best to signal them. Hopefully they saw us..",
                                       "\nMaybe some other day.", "")
     private val rescuedEvent            = new Event("rescuedEvent", "\nThere is someone banging on the door. Could be the military. Should we open?", this, Buffer(allItems("Door")), Buffer(),
