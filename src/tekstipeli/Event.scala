@@ -17,10 +17,10 @@ class Event(val name: String, val description: String, val bunker: Bunker, val u
   def itemStatus = {
     var itemStatus = ""
     for(currentItem <- usefullItems) {
-    itemStatus += (if(bunker.depositedItems.contains(currentItem.name)) currentItem + "[ ]" 
-                   else if (addedItems.contains(currentItem.name) && currentItem.name != "Door") currentItem + "[v]" + ":" 
+    itemStatus += (if(bunker.depositedItems.contains(currentItem.name) && !addedItems.contains(currentItem.name) ) currentItem.name + "[ ]" 
+                   else if (addedItems.contains(currentItem.name) && currentItem.name != "Door") currentItem.name + "[x]" 
                    else if(currentItem.name == "Door" ) "" 
-                   else currentItem + "[x]") + ":"
+                   else currentItem.name) + ":"
     }
     itemStatus.split(":").mkString(", ")
   }

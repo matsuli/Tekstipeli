@@ -4,6 +4,7 @@ import tekstipeli.Player._
 import scala.collection.mutable.Buffer
 import scala.collection.mutable.Map
 import scala.util.Random
+//import o1.sound._
 
 class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buffer[Item]], val allItems: Map[String, Item]) {
   
@@ -12,6 +13,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
   private var haveRadio = this.depositedItems.contains("Radio")
   private var day = 0
   private var militaryEventsDone = 0
+  private var todayStory = ""
   var gameCompleted = false
   var allDead = false
   var deadHumans = Buffer[Human]()
@@ -28,19 +30,22 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
     if(this.humans.size == 0) allDead = true
   }
   
+  def help: String = "Make decisions for the different events. Usable commands: next day, feed 'name/all', give water 'name/all', use and open door."
+  
   //Stories to be told. And the methods used for that.
   
   private val jokes         = "\n\nToday we had a joke telling competition. It was bunkerous... I'm bad at telling jokes."
   private val oldStuff      = "\n\nThere's all kinds of stuff here in the bunker. Old pictures, school books. Nothing too usefull I'm afraid..."
   private val funGame       = "\n\nWe came up with a fun game today. Try to argument why Apple is better than everything else. The game didn't last long."
-  private val chickenJoke   = "\n\nWhy did the chicken cross the road. Because he wanted to talk to the ugly neighbour. Knock knock. Who's there? It's the chicken."
-  private val life          = "\n\nWhat is life? Baby don't hurt me..."
+  private val chickenJoke   = "\n\nTimmy told us a joke today: Why did the chicken cross the road. Because he wanted to talk to the ugly neighbour. Knock knock. Who's there? It's the chicken."
+  private val love          = "\n\nWhat is love? Baby don't hurt me..."
   private val diary         = "\n\nDear diary, today I couldn't believe what happened. HEY this is private!"
-  private val watches       = "\n\nA man with one watch knows what time it is; a man with two watches is never quite sure."
-  private val clover        = "\n\nIf a man who cannot count finds a four-leaf clover, is he lucky?"
-  private val studentMaster = "\n\nThe master has failed more times than the beginner has even tried."
+  private val watches       = "\n\nMats mumbled some deep philosophy last night while sleeping: A man with one watch knows what time it is; a man with two watches is never quite sure."
+  private val clover        = "\n\nI came to think: If a man who cannot count finds a four-leaf clover, is he lucky?"
+  private val studentMaster = "\n\nThe master has failed more times than the beginner has even tried. Thats true. I'm perfect and Timmy hasn't even tried."
+  private val timmySilent   = "\n\nCould you just shut up Timmy? We are all tired of your jokes.."
   
-  private val day0          = "\n\nWe are now safe in the bunker. We could feel the ground shaking when the missile hit. Luckily we all made it."
+  private val day0          = "\n\nWe are now safe in the bunker. We could feel the ground shaking when the missile hit. Luckily we all made it (hopefully, most likely not)."
   private val day2          = "\n\nDuring the night we heard explosions from not that far away. This can't be happening, it has to be a bad dream."
   private val day4          = "\n\nIt has been quiet now for a while. Too quiet... Who even launched the missile and what is this missile we are talking about??"
   private val day7          = "\n\nHmm, we have our suspicions on who launched the missile. Most likely a newly elected president..."
@@ -50,7 +55,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
   private val day29         = "\n\nWe are still positive that we will be rescued. It is just a matter of time."
   private val day33         = "\n\nHOLY MOLY!! There was a broadcast on the radio and they are rescuing survivors. They will save us soon!"
   
-  private val storyCollection = Vector(jokes, oldStuff, funGame, chickenJoke, life, diary, watches, clover, studentMaster)
+  private val storyCollection = Vector(jokes, oldStuff, funGame, chickenJoke, love, diary, watches, clover, studentMaster, timmySilent)
   
   def randomStory(storyCollection: Vector[String]): String = {
     val randomSeed = new Random
@@ -69,38 +74,38 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
    else if (day == 25) day25
    else if (day == 29) day29
    else if (day == 33) day33
-   else randomStory(storyCollection)
+   else todayStory
   }
   
   //Events.
   
-    private val antsEvent          = new Event("ants", "\nThere's a small problem... Apparently there was ants living in the bunker and they don't want us here.\nWhat should we do to them?",
+    private val antsEvent          = new Event("ants", "\nThere's a small problem... Apparently there are ants living in the bunker and they don't want us here.\nWhat should we do to them?",
                                       this, Buffer(allItems("Bugspray")), Buffer(allItems("Water Bottle")),
-                                      "\nLuckily we hade the bugspray. Now those pesky ants won't disturb us. We also found a water bottle in their colony.",
+                                      "\nLuckily we hade the bugspray. Now those pesky ants won't disturb us for a while. We also found a water bottle in their colony.",
                                       "\nWe tried to fight them with our bare hands, we killed some but not all.", "")
-    private val knockGentleEvent   = new Event("knockGentle", "\nWhat? Did someone knock on the door? The knock was so gentle that we hardly could hear it.\nTake the flashlight and open the door?",
+    private val knockGentleEvent   = new Event("knockGentle", "\nWhat? Did someone knock on the door? The knock was so gentle that we hardly could hear it.\nShoule we take the flashlight and open the door?",
                                       this, Buffer(allItems("Flashlight"), allItems("Door")), Buffer(allItems("Canned Beans")),
-                                      "\nWe opened the door and there standing was other survivors, they asked us if we were okay and gave us food", "\nWe didn't hear any more knocks",
-                                      "\nWe opened the door but saw no one")
-    private val knockHardEvent     = new Event("knockHard","\nThere is someone banging on the door. Take the axe and go open the door?", this, Buffer(allItems("Axe"), allItems("Door")), Buffer(),
+                                      "\nWe opened the door and saw other survivors standing oustide, they asked us how we were doing and gave us some food.", "\nWe didn't hear any more knocks after a while.",
+                                      "\nWe opened the door but didn't see anyone.")
+    private val knockHardEvent     = new Event("knockHard","\nThere is someone banging on the door. Should we pick up the axe and open the door?", this, Buffer(allItems("Axe"), allItems("Door")), Buffer(),
                                       "\nWe opened the door and saw someone running away, he probably got scared of the axe.","\nAfter a while the knocks just stopped.",
-                                      "\nWe didn't dare open the door without protection")
-    private val screamsEvent       = new Event("screams", "\nSomeone is screaming for help outside. Take the flashlight and go help?", this, Buffer(allItems("Flashlight"), allItems("Door")), Buffer(allItems("Bugspray")),
+                                      "\nWe didn't dare open the door without protection.")
+    private val screamsEvent       = new Event("screams", "\nSomeone is screaming for help outside. Should we take the flashlight and go find out what's going on?", this, Buffer(allItems("Flashlight"), allItems("Door")), Buffer(allItems("Bugspray")),
                                       "\nWe ran outside and saw a dog howling, guess it was the dog we heard. We saw a a bottle of bugspray on the ground and took it.",
-                                      "\nWe heard a explosion outside, after that there was silence.", "\nWe peeked out the door but it was so dark we couldn't see anything.")
+                                      "\nWe heard a explosion outside, after that there was silence.", "\nWe peeked out of the door but it was so dark we couldn't see anything.")
     private val booringEvent       = new Event("booring", "\nIt's soo booring in here. Can't we do anything else but wait?", this, Buffer(allItems("Playingcards")), Buffer(),
                                       "\nThat's a good idea, this will entertain us for a while.", "\nWell maybe we can't expect too much.", "")
-    private val expeditionGasEvent = new Event("expeditionGas", "\nWe could go on an expedition outside, there's maybe toxic gases outside. Take the gas mask and go?", this, Buffer(allItems("Gas Mask")), Buffer(allItems("Canned Beans")),
-                                      "\nWe walked around the quarter and everything was destroyed. Atleast we found food!",
+    private val expeditionGasEvent = new Event("expeditionGas", "\nWe could go on an expedition outside, and explore the surroundings. There could be toxic gases around. Should we go outside with the gas mask?", this, Buffer(allItems("Gas Mask")), Buffer(allItems("Canned Beans")),
+                                      "\nWe walked around the quarter and everything was destroyed. Atleast we found some food.",
                                       "\nYeah, maybe we shouldn't take any risks.", "")
-    private val expeditionEvent    = new Event("expedition", "\nShould we go on a expedition? Only on a short one. Please? We could take the map with us?", this, Buffer(allItems("Map")), Buffer(allItems("Water Bottle"), allItems("Axe")),
+    private val expeditionEvent    = new Event("expedition", "\nShould we go on a expedition? Only on a short one. Please? We could take the map with us..", this, Buffer(allItems("Map")), Buffer(allItems("Water Bottle"), allItems("Axe")),
                                       "\nThanks to the map we could navigate around in the city. We didn't see any signs of life... but we found a bottle of water.",
                                       "\nYeah, maybe we shouldn't take any risks.", "")
-    private val militaryTreesEvent    = new Event("militaryTrees", "\nThe military said on the radio that you should go cut down some trees nearby your shelter." + (if(!haveRadio) "Oh, we don't have a radio. Worth a shot anyways")+ "That way they can know where you are. Take the axe and go cut some trees?", this, Buffer(allItems("Axe")), Buffer(),
+    private val militaryTreesEvent    = new Event("militaryTrees", "\nThe military informed everyone on the radio that you should go cut down some trees nearby your shelter." + (if(!haveRadio) "Oh, we don't have a radio. Who said that then? Must have benn Timmy.")+ "It will be easier for them to find us that way. Shoulw we take the axe and go cut some trees down?", this, Buffer(allItems("Axe")), Buffer(),
                                       "\nWe managed to cut down some trees in the park nearby, hopefully the military will spot it.",
                                       "\nMaybe some other day.", "")
-    private val militaryFlashlightEvent = new Event("militaryFlashlight", "\nThe military said on the radio that they will do a fly by over our area during the night." + (if(!haveRadio) "Oh, we don't have a radio. Worth a shot anyways") + "Take the flashlight and go out?", this, Buffer(allItems("Flashlight")), Buffer(),
-                                      "\nThey did see us! We will be rescued soon...",
+    private val militaryFlashlightEvent = new Event("militaryFlashlight", "\nThe military informed us on the radio that they will do a fly by over our area during the night." + (if(!haveRadio) "We don't have a radio..that's strange. It must be the beans I ate.") + "Should we go outside the next night with the flashlight?", this, Buffer(allItems("Flashlight")), Buffer(),
+                                      "\nWe saw the plane, and tried our best to signal them. Hopefully they saw us..",
                                       "\nMaybe some other day.", "")
     private val rescuedEvent            = new Event("rescuedEvent", "\n" + (if(!haveRadio) "Oh, we don't have a radio. Worth a shot anyways") + "Take the flashlight and go out?", this, Buffer(allItems("Flashlight")), Buffer(),
                                       "\nThey did see us! We will be rescued soon...",
@@ -130,6 +135,11 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
   
   //advances one day and does everything that is needed
   def advanceOneDay = {
+    todayStory = randomStory(storyCollection)
+    //if(todayStory == "love") playRecording("Haddaway_what_is_love.wav")
+    if(day == 0) {
+      this.humans += "Steve" -> new Human("Steve", "The father of the family")
+    }
     day += 1
     yesterdayEvent = todaysEvent
     if(yesterdayEvent.isDefined) {
@@ -170,7 +180,8 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
   }
   
   //gives water to everyone or to a specific person
-  def give(who: String) = {
+  def giveWater(who: String) = {
+
     if(who == "All" || who == "Everyone" && this.depositedItems("Water Bottle").size >= this.humans.size) {
       var humanCollection = humans.values.toVector
       if(depositedItems.contains("Water Bottle")) {
@@ -200,7 +211,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
     if(depositedItems.contains(itemName)) {
     if(todaysEvent.get.usefullItems.contains(allItems(itemName))) {
       todaysEvent.get.addItem(allItems(itemName))
-      "You take the " + itemName + "..."
+      "You take the " + itemName + ".."
      } else "That won't of any help."
     } else "You don't have a " + itemName + " in here."
     }
@@ -245,8 +256,6 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
     eventsOnHold += chosenEvent
     chosenEvent
   }
-  
-  def help: String = "Make decisions for the different events. Usable commands: next day, feed all, give water, use and open door"
   
  
 }
