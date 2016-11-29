@@ -9,6 +9,7 @@ class Adventure {
   /** The title of the adventure game. */
   val title = "21 turns"
     
+  // all the rooms
   private val hallway       = new Area("Hallway", "The Hallway")
   private val livingroom    = new Area("Livingroom", "The Living Room")
   private val kitchen       = new Area("Kitchen", "The Kitchen")
@@ -18,6 +19,7 @@ class Adventure {
   private val bunkerArea    = new Area("Bunker", "The Bunker")
   private val destination   = bunkerArea
   
+  //all the items
   private val cannedBeans   = new Item("Canned Beans", "A can of Beans", 0, true)
   private val waterBottle   = new Item("Water Bottle", "A bottle of Water", 0, true)
   private val axe           = new Item("Axe", "An Axe", 0, true)
@@ -33,6 +35,7 @@ class Adventure {
   private val smallcloset   = new Item("Small Closet", "An openable Closet", 2, false)
   private val door          = new Item("Door", "A ghost item", 0, false)
   
+  //the humans
   private val peter         = new Human("Peter")
   private val georg         = new Human("Georg")
   private val mats          = new Human("Mats")
@@ -50,6 +53,7 @@ class Adventure {
     masterBedroom.addHuman(peter)
           kitchen.addHuman(georg)
 
+  //all the rooms, items in the rooms and all the items in the game
   private val rooms = Map[String, Area](hallway.name -> hallway, livingroom.name -> livingroom, kitchen.name -> kitchen, masterBedroom.name -> masterBedroom, bedroom.name -> bedroom, toilet.name -> toilet)
 
   private val items = Buffer(cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, cannedBeans, waterBottle, waterBottle, waterBottle, waterBottle, waterBottle, waterBottle, axe, radio, medKit, medKit, map, flashlight, bugSpray, playingCards, closet, smallcloset, suitcase)

@@ -15,6 +15,7 @@ class House(val rooms: Map[String, Area], startingArea: Area) {
   
   def help: String = "Pick up items and deposit them to the bunker. Also warn the others. Usable commands: get/take, go, open, drop, deposit, inventory, warn"
   
+  //returns the distance to an item
   def distanceToItem(item: String): Int = {
     var distance = 1
     var currentArea = Vector(location)
@@ -33,6 +34,7 @@ class House(val rooms: Map[String, Area], startingArea: Area) {
     distance
   }
   
+  //places items randomly in the house
   def placeItems(items: Buffer[Item]) = {
     val randomSeed = new Random
     val randomizedItems = randomSeed.shuffle(items)
@@ -103,6 +105,7 @@ class House(val rooms: Map[String, Area], startingArea: Area) {
     } else "I can't see " + itemName + " here."
   }
   
+  //warns someone and they go to the bunker
   def warn(human: String) = {
     if(currentLocation.containsHuman(human)) {
       this.warnedHumans += human -> this.currentLocation.removeHuman(human).get
@@ -110,6 +113,7 @@ class House(val rooms: Map[String, Area], startingArea: Area) {
     } else human + " is not here!" 
   }
   
+  //deposits items to the bunker
   def deposit = {
     if(this.currentLocation.name == "Livingroom") {
       if(this.carrying.nonEmpty) {

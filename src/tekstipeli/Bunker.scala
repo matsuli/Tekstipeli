@@ -58,6 +58,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
     randomizedStories(0)
   }
   
+  //preset stories
   def Story: String = {
         if (day == 0)  day0
    else if (day == 2)  day2
@@ -127,6 +128,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
     humansReport
   }
   
+  //advances one day and does everything that is needed
   def advanceOneDay = {
     day += 1
     yesterdayEvent = todaysEvent
@@ -145,6 +147,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
   
   def inventory = Player.inventory(this.depositedItems, "Stashed items:\n", "You seem to be empty-handed. That's not too good, is it?")
   
+  //feeds all or o specific person
   def feed(who: String) = {
     if(who == "All" || who == "Everyone" && this.depositedItems("Canned Beans").size >= this.humans.size) {
       var humanCollection = humans.values.toVector
@@ -166,6 +169,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
     } else "You can't feed " + who + "anything."  
   }
   
+  //gives water to everyone or to a specific person
   def give(who: String) = {
     if(who == "All" || who == "Everyone" && this.depositedItems("Water Bottle").size >= this.humans.size) {
       var humanCollection = humans.values.toVector
@@ -187,6 +191,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
     } else "You can't give " + who + "anything."
   }
 
+  //uses a item for the event
   def useItem(itemName: String) = {
     if(itemName == "Door") {
       todaysEvent.get.addItem(allItems(itemName))
@@ -202,6 +207,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
     
   }
   
+  //chooses the next event. Event chosen depends on the day count and some randomnes
   def event: Event = {
     val randomSeed = new Random
     

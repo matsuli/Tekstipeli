@@ -13,7 +13,7 @@ class Event(val name: String, val description: String, val bunker: Bunker, val u
   private var almost = false
   var success = false
   
-  
+  //returns a description if a item is added to the event
   def itemStatus = {
     var itemStatus = ""
     for(currentItem <- usefullItems) {
@@ -25,6 +25,7 @@ class Event(val name: String, val description: String, val bunker: Bunker, val u
     itemStatus.split(":").mkString(", ")
   }
   
+  //adds the specific item to the event
   def addItem(item: Item) = {
     if(this.usefullItems.contains(item)) {
       this.addedItems += item.name -> item
@@ -34,6 +35,7 @@ class Event(val name: String, val description: String, val bunker: Bunker, val u
     }
   }
   
+  //checks if the event is successfull
   def completionStatus = {
     if(this.addedItems.contains("Door") && this.addedItems.size == this.usefullItems.size) {
       success = true
@@ -48,6 +50,7 @@ class Event(val name: String, val description: String, val bunker: Bunker, val u
     }
   }
   
+  //adds rewards to the bunkers inventory
   def addRewards = {
     if(success == true) {
       for(item <- this.potentialRewards) {
@@ -58,6 +61,7 @@ class Event(val name: String, val description: String, val bunker: Bunker, val u
     }
   }
   
+  //tells the outcome of a event
   def outcome = if(success) outcomeSuccess else if(almost) outcomeAlmost else outcomeFail
 
   override def toString = this.description
