@@ -1,7 +1,7 @@
 package tekstipeli
 
 
-class Human(val name: String) {
+class Human(val name: String, val description: String) {
 
   private var hunger = 7
   private var thirst = 4
@@ -21,17 +21,17 @@ class Human(val name: String) {
 
   def hungerStatus: String = {
          if (hunger == 7) ""
-    else if (hunger > 4) this.name + " is getting hungry. " 
-    else if (hunger > 1) this.name + " is very hungry! "
-    else if (hunger == 1) this.name + " needs food now!! "
+    else if (hunger > 4) "\n" + this.name + " is getting hungry. " 
+    else if (hunger > 1) "\n" + this.name + "'s stomach is grumbling violently. "
+    else if (hunger == 1) "\n" + this.name + " really needs some food. NOW. "
     else ""
   }
   
   def thirstStatus: String = {
          if (thirst == 4) ""
-    else if (thirst > 2) this.name + " is getting thirsty " 
-    else if (thirst > 1) this.name + " is very thirsty! "
-    else if (thirst == 1)this.name + " needs water now!! "
+    else if (thirst > 2) this.name + " is getting thirsty." 
+    else if (thirst > 1) this.name + " 's throat is quite dry."
+    else if (thirst == 1)this.name + " won't last any longer without water!"
     else ""
   }
   

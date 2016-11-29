@@ -39,6 +39,8 @@ class Action(input: String) {
       Some(actor.inventory)
     } else if (this.verb == "warn") {
       Some(actor.warn(this.modifiers))
+    } else if (this.verb == "help") {
+      Some(actor.help)
     } else {
       None
     }
@@ -57,6 +59,8 @@ class Action(input: String) {
       Some(actor.give(this.modifiers))
     } else if (this.verb == "inventory") {
       Some(actor.inventory)
+    } else if (this.verb == "help") {
+      Some(actor.help)
     } else {
       None
     }

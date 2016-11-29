@@ -35,11 +35,11 @@ class Adventure {
   private val smallcloset   = new Item("Small Closet", "An openable Closet", 2, false)
   private val door          = new Item("Door", "A ghost item", 0, false)
   
-  //the humans
-  private val peter         = new Human("Peter")
-  private val georg         = new Human("Georg")
-  private val mats          = new Human("Mats")
 
+  //the humans
+  private val timmy         = new Human("Timmy", "A young boy")
+  private val mats          = new Human("Mats", "Seems to be Timmys brother")
+  private val alison        = new Human("Alison", "The mother of the family")
 
           hallway.setNeighbors(Vector("Livingroom"     -> livingroom     , "Toilet"         -> toilet                                                                                          ))
        livingroom.setNeighbors(Vector("Master Bedroom" -> masterBedroom  , "Bedroom"        -> bedroom, "Hallway" -> hallway, "Kitchen" -> kitchen, "Toilet" -> toilet, "Bunker" -> bunkerArea ))
@@ -48,10 +48,9 @@ class Adventure {
           bedroom.setNeighbors(Vector("Livingroom"     -> livingroom     , "Master Bedroom" -> masterBedroom                                                                                   ))
            toilet.setNeighbors(Vector("Hallway"        -> hallway        , "Livingroom"     -> livingroom                                                                                      ))
         
-           toilet.addHuman(mats)
-
-    masterBedroom.addHuman(peter)
-          kitchen.addHuman(georg)
+           toilet.addHuman(timmy)
+          bedroom.addHuman(mats)
+          kitchen.addHuman(alison)
 
   //all the rooms, items in the rooms and all the items in the game
   private val rooms = Map[String, Area](hallway.name -> hallway, livingroom.name -> livingroom, kitchen.name -> kitchen, masterBedroom.name -> masterBedroom, bedroom.name -> bedroom, toilet.name -> toilet)
@@ -93,7 +92,7 @@ class Adventure {
     * will be different depending on whether or not the player has completed their quest. */
   def goodbyeMessage = {
     if(this.bunker.allDead && this.turnCount < 1) {
-      "You Perished." + (if(bunker.deadHumans.size > 0) "\n" + this.house.warnedHumans.keys.mkString(", ") + " all died due to starvation or thirst." else "\nYou didn't warn anyone.")
+      "You Perished." + (if(bunker.deadHumans.size > 0) "\n" + this.bunker.deadHumans.mkString(" and") + " died due to starvation or thirst." else "\nYou didn't warn anyone.")
     } else if(this.isComplete) {
       "We made it!" + (if(this.bunker.humans.size != this.house.warnedHumans.size) " Or well, almost everyone did.") + "\nThe rescue team arrived in their contaminated uniforms and escorted us to safety.\nLet us hope this will be the last of it.."
     } else ""
