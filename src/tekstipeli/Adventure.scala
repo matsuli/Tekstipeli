@@ -67,19 +67,17 @@ class Adventure {
 
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 21
-  /** The maximum number of turns that this adventure game allows before time runs out. */
-  val timeLimit = 40 
-
 
   /** Determines if the adventure is complete, that is, if the player has won. */
   def isComplete = bunker.gameCompleted
 
   /** Determines whether the player has won, lost, or quit, thereby ending the game. */ 
-  def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit
+  def isOver = this.isComplete || this.player.hasQuit || (this.bunker.allDead && this.turnCount < 1)
 
   /** Returns a message that is to be displayed to the player at the beginning of the game. */
   def welcomeMessage = {
-    "You hear the radio " + (if(house.distanceToItem("Radio") == 0) "blaring a few feet away." else if(house.distanceToItem("Radio") == 1) "broadcast muffled nearby." else "buzzing far away.") + " 'bzrr' This is a w..rni.. message: Nuclear launch detected 'shr'. Get to a sh....." + 
+    "You hear the radio " + 
+    (if(house.distanceToItem("Radio") == 0) "blaring a few feet away." else if(house.distanceToItem("Radio") == 1) "broadcast muffled nearby." else "buzzing far away.") + " 'bzrr' This is a w..rni.. message: Nuclear launch detected 'shr'. Get to a sh....." + 
     "\nYou couldn't catch the message completely, but the nuke seems to be heading your way. You better hurry up! Collect the items you need and head to the bunker. Oh, and maybe warn the others."
   }
 
@@ -87,12 +85,11 @@ class Adventure {
   /** Returns a message that is to be displayed to the player at the end of the game. The message 
     * will be different depending on whether or not the player has completed their quest. */
   def goodbyeMessage = {
-    if (this.isComplete)
-      "Home at last... and phew, just in time! Well done!"
-    else if (this.turnCount == this.timeLimit)
-      "Oh no! Time's up. Starved of entertainment, you collapse and weep like a child.\nGame over!"
-    else  // game over due to player quitting
-      "Quitter!" 
+    if(this.bunker.allDead && this.turnCount < 1) {
+      "You Perished." + (if(bunker.deadHumans.size > 0) "\n" + this.house.warnedHumans.keys.mkString(", ") + " all died due to starvation or thirst." else "\nYou didn't warn anyone.")
+    } else if(this.isComplete) {
+      "We made it!" + (if(this.bunker.humans.size != this.house.warnedHumans.size) " Or well, almost everyone did.") + "\nThe rescue team arrived in their contaminated uniforms and escorted us to safety.\nLet us hope this will be the last of it.."
+    } else ""
   }
 
   
@@ -101,11 +98,15 @@ class Adventure {
     * case, no turns elapse. */
   def playTurn(command: String) = {
     val action = new Action(command)
-    val outcomeReport = if(action.verb == "quit") action.execute(this.player)
-      else if(turnCount < 1) {
-      action.executeBunker(this.bunker)
+    val outcomeReport = {
+      if(action.verb == "quit") {
+        action.execute(this.player) 
+    } else if(turnCount < 1) {
+        action.executeBunker(this.bunker)
     } else action.executeHouse(this.house) 
-    if (outcomeReport.isDefined) { 
+    }
+    val allowedWords = Vector("go", "warn", "deposit", "drop", "get", "take", "next")
+    if (outcomeReport.isDefined && allowedWords.contains(action.verb) ) { 
       this.turnCount -= 1
     }
     outcomeReport.getOrElse("Unknown command: \"" + command + "\".")

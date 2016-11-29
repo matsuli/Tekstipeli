@@ -25,7 +25,6 @@ class Action(input: String) {
   }
   
   def executeHouse(actor: House) = {                             
-
     if (this.verb == "go") {
       Some(actor.go(this.modifiers))
     } else if (this.verb == "get" || this.verb == "take") {
@@ -43,25 +42,24 @@ class Action(input: String) {
     } else {
       None
     }
-    
   }
   
   def executeBunker(actor: Bunker) = {                             
-
     if (this.verb == "next") {
-      Some(actor.advanceDay)
+      Some(actor.advanceOneDay)
     } else if (this.verb == "use") {
       Some(actor.useItem(this.modifiers))
     } else if (this.verb == "open") {
       Some(actor.useItem(this.modifiers))
     } else if (this.verb == "feed") {
-      Some(actor.feed)
+      Some(actor.feed(this.modifiers))
     } else if (this.verb == "give") {
-      Some(actor.give)
+      Some(actor.give(this.modifiers))
+    } else if (this.verb == "inventory") {
+      Some(actor.inventory)
     } else {
       None
     }
-    
   }
 
 

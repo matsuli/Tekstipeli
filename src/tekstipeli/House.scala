@@ -1,5 +1,6 @@
 package tekstipeli
 
+import tekstipeli.Player._
 import scala.collection.mutable.Buffer
 import scala.collection.mutable.Map
 import scala.util.Random
@@ -126,15 +127,6 @@ class House(val rooms: Map[String, Area], startingArea: Area) {
     } else "You need to be near the bunker to deposit items"
   }
   
-  def inventory: String = {
-    if(this.carrying.nonEmpty) {
-      var currentItems = ""
-      for(pair <- this.carrying) {
-        currentItems += pair._1 + (if(pair._2.size > 1) " x" + pair._2.size.toString else "") +  "\n"
-      }
-      "You are carrying:\n" + currentItems
-    } else "You are empty-handed."
-  }
-  
+  def inventory: String = Player.inventory(this.carrying, "You are carrying:\n", "You are empty-handed.")
 
 }

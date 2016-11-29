@@ -10,22 +10,19 @@ class Event(val name: String, val description: String, val bunker: Bunker, val u
 
   
   private val addedItems = Map[String, Item]()
-  var success = false
   private var almost = false
+  var success = false
   
-  def fullDescription = {
-    def itemStatus = {
-      var itemStatus = ""
-      for(currentItem <- usefullItems) {
-      itemStatus += (if(bunker.depositedItems.contains(currentItem.name)) currentItem + "[ ]" 
-                     else if (addedItems.contains(currentItem.name) && currentItem.name != "Door") currentItem + "[v]" + ":" 
-                     else if(currentItem.name == "Door" ) "" 
-                     else currentItem + "[x]") + ":"
-      }
-      itemStatus.split(":").mkString(", ")
+  
+  def itemStatus = {
+    var itemStatus = ""
+    for(currentItem <- usefullItems) {
+    itemStatus += (if(bunker.depositedItems.contains(currentItem.name)) currentItem + "[ ]" 
+                   else if (addedItems.contains(currentItem.name) && currentItem.name != "Door") currentItem + "[v]" + ":" 
+                   else if(currentItem.name == "Door" ) "" 
+                   else currentItem + "[x]") + ":"
     }
-    val requiredItems = "\nUsefull items: " + itemStatus
-    this.description + (if(this.name != "noEvent") requiredItems else "")
+    itemStatus.split(":").mkString(", ")
   }
   
   def addItem(item: Item) = {
@@ -33,7 +30,7 @@ class Event(val name: String, val description: String, val bunker: Bunker, val u
       this.addedItems += item.name -> item
       if(item.name == "Door") "" else "You used " + item.name + "."
     } else {
-      "That won't be of any help"
+      "That won't be of any help."
     }
   }
   
@@ -61,14 +58,8 @@ class Event(val name: String, val description: String, val bunker: Bunker, val u
     }
   }
   
-  def outcome = {
+  def outcome = if(success) outcomeSuccess else if(almost) outcomeAlmost else outcomeFail
 
-    if(success) outcomeSuccess else if(almost) outcomeAlmost else outcomeFail
-    
-  }
-  
-  
-  
   override def toString = this.description
   
 }

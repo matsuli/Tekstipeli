@@ -17,4 +17,18 @@ class Player {
   
 }
 
+object Player {
+  
+  def inventory(collection: Map[String, Buffer[Item]], have: String, dontHave: String): String = {
+    if(collection.nonEmpty) {
+      var currentItems = ""
+      for(pair <- collection) {
+        currentItems += pair._1 + (if(pair._2.size > 1) " x" + pair._2.size.toString else "") +  "\n"
+      }
+      have + currentItems
+    } else dontHave
+  }
+  
+}
+
 
