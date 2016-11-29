@@ -55,8 +55,8 @@ class Action(input: String) {
       Some(actor.useItem(this.modifiers))
     } else if (this.verb == "feed") {
       Some(actor.feed(this.modifiers))
-    } else if (this.verb == "give water") {
-      Some(actor.giveWater(this.modifiers))
+    } else if (this.verb == "give") {
+      Some(actor.give(this.modifiers))
     } else if (this.verb == "inventory") {
       Some(actor.inventory)
     } else if (this.verb == "help") {

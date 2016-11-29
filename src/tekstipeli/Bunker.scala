@@ -101,14 +101,14 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
     private val expeditionEvent    = new Event("expedition", "\nShould we go on a expedition? Only on a short one. Please? We could take the map with us..", this, Buffer(allItems("Map")), Buffer(allItems("Water Bottle"), allItems("Axe")),
                                       "\nThanks to the map we could navigate around in the city. We didn't see any signs of life... but we found a bottle of water.",
                                       "\nYeah, maybe we shouldn't take any risks.", "")
-    private val militaryTreesEvent    = new Event("militaryTrees", "\nThe military informed everyone on the radio that you should go cut down some trees nearby your shelter." + (if(!haveRadio) "Oh, we don't have a radio. Who said that then? Must have benn Timmy.")+ "It will be easier for them to find us that way. Shoulw we take the axe and go cut some trees down?", this, Buffer(allItems("Axe")), Buffer(),
+    private val militaryTreesEvent    = new Event("militaryTrees", "\nThe military informed everyone on the radio that you should go cut down some trees nearby your shelter." + (if(!haveRadio) "Oh, we don't have a radio. Who said that then? Must have been Timmy.")+ "It will be easier for them to find us that way. Shoulw we take the axe and go cut some trees down?", this, Buffer(allItems("Axe")), Buffer(),
                                       "\nWe managed to cut down some trees in the park nearby, hopefully the military will spot it.",
                                       "\nMaybe some other day.", "")
     private val militaryFlashlightEvent = new Event("militaryFlashlight", "\nThe military informed us on the radio that they will do a fly by over our area during the night." + (if(!haveRadio) "We don't have a radio..that's strange. It must be the beans I ate.") + "Should we go outside the next night with the flashlight?", this, Buffer(allItems("Flashlight")), Buffer(),
                                       "\nWe saw the plane, and tried our best to signal them. Hopefully they saw us..",
                                       "\nMaybe some other day.", "")
-    private val rescuedEvent            = new Event("rescuedEvent", "\n" + (if(!haveRadio) "Oh, we don't have a radio. Worth a shot anyways") + "Take the flashlight and go out?", this, Buffer(allItems("Flashlight")), Buffer(),
-                                      "\nThey did see us! We will be rescued soon...",
+    private val rescuedEvent            = new Event("rescuedEvent", "\nThere is someone banging on the door. Could be the military. Should we open?", this, Buffer(), Buffer(),
+                                      "\nThe rescue team arrived in their contaminated uniforms and escorted us to safety!",
                                       "\nMaybe some other day.", "")
     private val noEvent                 = new Event("noEvent", "\nThere is nothing special to report today.", this, Buffer(), Buffer(), "", "", "")
       
@@ -152,12 +152,15 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
       human.advanceOneDay
     }
     this.checkHumans
+    if(yesterdayEvent.isDefined && yesterdayEvent.get == rescuedEvent && yesterdayEvent.get.success) {
+      gameCompleted = true
+    }
     "The next day."
   }
   
   def inventory = Player.inventory(this.depositedItems, "Stashed items:\n", "You seem to be empty-handed. That's not too good, is it?")
   
-  //feeds all or o specific person
+  //feeds all or a specific person
   def feed(who: String) = {
     if(who == "All" || who == "Everyone" && this.depositedItems("Canned Beans").size >= this.humans.size) {
       var humanCollection = humans.values.toVector
@@ -180,7 +183,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
   }
   
   //gives water to everyone or to a specific person
-  def giveWater(who: String) = {
+  def give(who: String) = {
 
     if(who == "All" || who == "Everyone" && this.depositedItems("Water Bottle").size >= this.humans.size) {
       var humanCollection = humans.values.toVector

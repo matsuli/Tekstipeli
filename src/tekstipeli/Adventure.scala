@@ -92,7 +92,7 @@ class Adventure {
     * will be different depending on whether or not the player has completed their quest. */
   def goodbyeMessage = {
     if(this.bunker.allDead && this.turnCount < 1) {
-      "You Perished." + (if(bunker.deadHumans.size > 0) "\n" + this.bunker.deadHumans.mkString("and ") + " died due to starvation or thirst." else "\nYou didn't warn anyone.")
+      "You Perished." + (if(bunker.deadHumans.size > 0) "\n" + this.bunker.deadHumans.mkString(" and") + " died due to starvation or thirst." else "\nYou didn't warn anyone.")
     } else if(this.isComplete) {
       "We made it!" + (if(this.bunker.humans.size != this.house.warnedHumans.size) " Or well, almost everyone did.") + "\nThe rescue team arrived in their contaminated uniforms and escorted us to safety.\nLet us hope this will be the last of it.."
     } else ""
