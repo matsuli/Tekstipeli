@@ -81,33 +81,31 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
   
 
     private val antsEvent          = new Event("ants", "\nThere's a small problem... Apparently there was ants living in the bunker and they don't want us here.\nWhat should we do to them?",
-                                      this, Buffer(allItems("Bugspray")), Buffer(allItems("Water Bottle"), allItems("Water Bottle"), allItems("Canned Beans")),
+                                      this, Buffer(allItems("Bugspray")), Buffer(allItems("Water Bottle"), allItems("Water Bottle")),
                                       "\nLuckily we hade the bugspray. Now those pesky ants won't disturb us. We also found a water bottle in their colony.",
                                       "\nWe tried to fight them with our bare hands, we killed some but not all.", "")
     private val knockGentleEvent   = new Event("knockGentle", "\nWhat? Did someone knock on the door? The knock was so gentle that we hardly could hear it.\nShould we take the flashlight and open the door?",
-                                      this, Buffer(allItems("Flashlight"), allItems("Door")), Buffer(allItems("Canned Beans"), allItems("Canned Beans"), allItems("Water Bottle")),
+                                      this, Buffer(allItems("Flashlight"), allItems("Door")), Buffer(allItems("Canned Beans"), allItems("Canned Beans")),
                                       "\nWe opened the door and there standing was other survivors, they asked us how we were doing and gave us some food.", "\nWe didn't hear any more knocks",
                                       "\nWe opened the door but saw no one")
-    private val knockHardEvent     = new Event("knockHard","\nThere is someone banging on the door. Should we pick up the axe and open the door?", this, Buffer(allItems("Axe"), allItems("Door")), Buffer(allItems("Gas Mask"), allItems("Water Bottle"), allItems("Canned Beans")),
+    private val knockHardEvent     = new Event("knockHard","\nThere is someone banging on the door. Should we pick up the axe and open the door?", this, Buffer(allItems("Axe"), allItems("Door")), Buffer(allItems("Gas Mask")),
                                       "\nWe opened the door and saw someone running away, he probably got scared of the axe. He left an gas mask behind.","\nAfter a while the knocks just stopped.",
                                       "\nWe didn't dare open the door without protection")
-    private val screamsEvent       = new Event("screams", "\nSomeone is screaming for help outside. Take the flashlight and go help?", this, Buffer(allItems("Flashlight"), allItems("Door")), Buffer(allItems("Bugspray"), allItems("Water Bottle"), allItems("Canned Beans")),
-
+    private val screamsEvent       = new Event("screams", "\nSomeone is screaming for help outside. Take the flashlight and go help?", this, Buffer(allItems("Flashlight"), allItems("Door")), Buffer(allItems("Bugspray"), allItems("Water Bottle")),
                                       "\nWe ran outside and saw a dog howling, guess it was the dog we heard. We saw a a bottle of bugspray on the ground and took it.",
                                       "\nWe heard a explosion outside, after that there was silence.", "\nWe peeked out of the door but it was so dark we couldn't see anything.")
-    private val booringEvent       = new Event("booring", "\nIt's soo booring in here. Can't we do anything else but wait?", this, Buffer(allItems("Playingcards")), Buffer(allItems("Water Bottle")),
+    private val booringEvent       = new Event("booring", "\nIt's soo booring in here. Can't we do anything else but wait?", this, Buffer(allItems("Playingcards")), Buffer(),
                                       "\nThat's a good idea, this will entertain us for a while.", "\nWell maybe we can't expect too much.", "")
-
     private val expeditionGasEvent = new Event("expeditionGas", "\nWe could go on an expedition outside, and explore the surroundings. There could be toxic gases around. Should we go outside with the gas mask?", this, Buffer(allItems("Gas Mask")), Buffer(allItems("Canned Beans"), allItems("Water Bottle")),
                                       "\nWe walked around the quarter and everything was destroyed. Atleast we found food and water!",
                                       "\nYeah, maybe we shouldn't take any risks.", "")
     private val expeditionEvent    = new Event("expedition", "\nShould we go on a expedition? Only on a short one. Please? We could take the map with us?", this, Buffer(allItems("Map")), Buffer(allItems("Water Bottle"), allItems("Axe"), allItems("Canned Beans")),
                                       "\nThanks to the map we could navigate around in the city. We didn't see any signs of life... but we found a bottle of water.",
                                       "\nYeah, maybe we shouldn't take any risks.", "")
-    private val militaryTreesEvent    = new Event("militaryTrees", "\nThe military said on the radio that you should go cut down some trees nearby your shelter." + (if(!haveRadio) "Oh, we don't have a radio. Worth a shot anyways. ")+ "That way they can know where you are. Take the axe and go cut some trees?", this, Buffer(allItems("Axe")), Buffer(allItems("Water Bottle"), allItems("Water Bottle")),
+    private val militaryTreesEvent    = new Event("militaryTrees", "\nThe military said on the radio that you should go cut down some trees nearby your shelter." + (if(!haveRadio) "Oh, we don't have a radio. Did Timmy say that? ")+ "That way they can know where you are. Take the axe and go cut some trees?", this, Buffer(allItems("Axe")), Buffer(allItems("Water Bottle"), allItems("Water Bottle")),
                                       "\nWe managed to cut down some trees in the park nearby, hopefully the military will spot it.",
                                       "\nMaybe some other day.", "")
-    private val militaryFlashlightEvent = new Event("militaryFlashlight", "\nThe military informed on the radio that they will do a fly by over our area during the night." + (if(!haveRadio) "Oh, we don't have a radio. Worth a shot anyways. ") + "Take the flashlight and go out?", this, Buffer(allItems("Flashlight")), Buffer(allItems("Water Bottle"), allItems("Canned Beans")),
+    private val militaryFlashlightEvent = new Event("militaryFlashlight", "\nThe military informed on the radio that they will do a fly by over our area during the night." + (if(!haveRadio) "Hmm..we don't have a radio. Must have been the canned beans I ate. ") + "Take the flashlight and go out?", this, Buffer(allItems("Flashlight")), Buffer(allItems("Water Bottle"), allItems("Canned Beans")),
                                       "\nWe saw the plane, and tried our best to signal them. Hopefully they saw us..",
                                       "\nMaybe some other day.", "")
     private val rescuedEvent            = new Event("rescuedEvent", "\nThere is someone banging on the door. Could be the military. Should we open?", this, Buffer(allItems("Door")), Buffer(),
