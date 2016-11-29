@@ -7,7 +7,7 @@ import scala.collection.mutable.Buffer
 class Adventure {
 
   /** The title of the adventure game. */
-  val title = "21 turns"
+  val title = "30 turns"
     
   // all the rooms
   private val hallway       = new Area("Hallway", "The Hallway")
@@ -72,7 +72,7 @@ class Adventure {
 
   
   /** The number of turns that have passed since the start of the game. */
-  var turnCount = 21
+  var turnCount = 30
   
   /** Determines if the adventure is complete, that is, if the player has won. */
   def isComplete = bunker.gameCompleted
@@ -92,7 +92,7 @@ class Adventure {
     * will be different depending on whether or not the player has completed their quest. */
   def goodbyeMessage = {
     if(this.bunker.allDead && this.turnCount < 1) {
-      "You Perished." + (if(bunker.deadHumans.size > 0) "\n" + this.bunker.deadHumans.mkString(" and") + " died due to starvation or thirst." else "\nYou didn't warn anyone.")
+      "You Perished." + (if(bunker.deadHumans.size > 0) "\n" + this.bunker.deadHumans.mkString(" and") + " died due to starvation or thirst." else "")
     } else if(this.isComplete) {
       "We made it!" + (if(this.bunker.humans.size != this.house.warnedHumans.size) " Or well, almost everyone did.") + "\nThe rescue team arrived in their contaminated uniforms and escorted us to safety.\nLet us hope this will be the last of it.."
     } else ""
