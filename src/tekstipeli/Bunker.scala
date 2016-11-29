@@ -111,7 +111,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
                                       "\nWe saw the plane, and tried our best to signal them. Hopefully they saw us..",
 
                                       "\nMaybe some other day.", "")
-    private val rescuedEvent            = new Event("rescuedEvent", "\nThere is someone banging on the door. Could be the military. Should we open?", this, Buffer(), Buffer(),
+    private val rescuedEvent            = new Event("rescuedEvent", "\nThere is someone banging on the door. Could be the military. Should we open?", this, Buffer(allItems("Door")), Buffer(),
                                       "\nThe rescue team arrived in their contaminated uniforms and escorted us to safety!",
                                       "\nMaybe some other day.", "")
     private val noEvent                 = new Event("noEvent", "\nThere is nothing special to report today.", this, Buffer(), Buffer(), "", "", "")
@@ -247,7 +247,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
       }
     }
     
-    if(day > 42) {
+    if(day > 38) {
       val roll = randomSeed.nextInt(10)
       if(militaryEventsDone > 1) {
         eventsAvailable += rescuedEvent 
