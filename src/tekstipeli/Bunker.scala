@@ -81,21 +81,21 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
   
 
     private val antsEvent          = new Event("ants", "\nThere's a small problem... Apparently there was ants living in the bunker and they don't want us here.\nWhat should we do to them?",
-                                      this, Buffer(allItems("Bugspray")), Buffer(allItems("Water Bottle"), allItems("Water Bottle")),
+                                      this, Buffer(allItems("Bugspray")), Buffer(allItems("Water Bottle"), allItems("Water Bottle"), allItems("Canned Beans")),
                                       "\nLuckily we hade the bugspray. Now those pesky ants won't disturb us. We also found a water bottle in their colony.",
                                       "\nWe tried to fight them with our bare hands, we killed some but not all.", "")
     private val knockGentleEvent   = new Event("knockGentle", "\nWhat? Did someone knock on the door? The knock was so gentle that we hardly could hear it.\nShould we take the flashlight and open the door?",
-                                      this, Buffer(allItems("Flashlight"), allItems("Door")), Buffer(allItems("Canned Beans"), allItems("Canned Beans")),
+                                      this, Buffer(allItems("Flashlight"), allItems("Door")), Buffer(allItems("Canned Beans"), allItems("Canned Beans"), allItems("Water Bottle")),
                                       "\nWe opened the door and there standing was other survivors, they asked us how we were doing and gave us some food.", "\nWe didn't hear any more knocks",
                                       "\nWe opened the door but saw no one")
-    private val knockHardEvent     = new Event("knockHard","\nThere is someone banging on the door. Should we pick up the axe and open the door?", this, Buffer(allItems("Axe"), allItems("Door")), Buffer(allItems("Gas Mask")),
+    private val knockHardEvent     = new Event("knockHard","\nThere is someone banging on the door. Should we pick up the axe and open the door?", this, Buffer(allItems("Axe"), allItems("Door")), Buffer(allItems("Gas Mask"), allItems("Water Bottle"), allItems("Canned Beans")),
                                       "\nWe opened the door and saw someone running away, he probably got scared of the axe. He left an gas mask behind.","\nAfter a while the knocks just stopped.",
                                       "\nWe didn't dare open the door without protection")
-    private val screamsEvent       = new Event("screams", "\nSomeone is screaming for help outside. Take the flashlight and go help?", this, Buffer(allItems("Flashlight"), allItems("Door")), Buffer(allItems("Bugspray"), allItems("Water Bottle")),
+    private val screamsEvent       = new Event("screams", "\nSomeone is screaming for help outside. Take the flashlight and go help?", this, Buffer(allItems("Flashlight"), allItems("Door")), Buffer(allItems("Bugspray"), allItems("Water Bottle"), allItems("Canned Beans")),
 
                                       "\nWe ran outside and saw a dog howling, guess it was the dog we heard. We saw a a bottle of bugspray on the ground and took it.",
                                       "\nWe heard a explosion outside, after that there was silence.", "\nWe peeked out of the door but it was so dark we couldn't see anything.")
-    private val booringEvent       = new Event("booring", "\nIt's soo booring in here. Can't we do anything else but wait?", this, Buffer(allItems("Playingcards")), Buffer(),
+    private val booringEvent       = new Event("booring", "\nIt's soo booring in here. Can't we do anything else but wait?", this, Buffer(allItems("Playingcards")), Buffer(allItems("Water Bottle")),
                                       "\nThat's a good idea, this will entertain us for a while.", "\nWell maybe we can't expect too much.", "")
 
     private val expeditionGasEvent = new Event("expeditionGas", "\nWe could go on an expedition outside, and explore the surroundings. There could be toxic gases around. Should we go outside with the gas mask?", this, Buffer(allItems("Gas Mask")), Buffer(allItems("Canned Beans"), allItems("Water Bottle")),
