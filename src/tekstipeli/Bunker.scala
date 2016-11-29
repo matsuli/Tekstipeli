@@ -30,7 +30,7 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
     if(this.humans.size == 0) allDead = true
   }
   
-  def help: String = "Make decisions for the different events. Usable commands: next day, feed 'name/all', give water 'name/all', use and open door."
+  def help: String = "Make decisions for the different events. Usable commands: next day, feed 'name/all', give 'name/all' (gives water), use and open door."
   
   //Stories to be told. And the methods used for that.
   
