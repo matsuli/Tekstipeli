@@ -105,7 +105,7 @@ class House(val rooms: Map[String, Area], startingArea: Area) {
     } else "I can't see " + itemName + " here."
   }
   
-  //warns someone and they go to the bunker
+  //warns someone -> they go to bunker
   def warn(human: String) = {
     if(currentLocation.containsHuman(human)) {
       this.warnedHumans += human -> this.currentLocation.removeHuman(human).get
