@@ -92,7 +92,7 @@ object TekstipeliGUI extends SimpleSwingApplication {
     this.title = game.title
     this.updateInfo(this.game.welcomeMessage)
     this.location = new Point(50, 50)
-    this.minimumSize = new Dimension(200, 200)
+    this.minimumSize = new Dimension(600, 600)
     this.pack()
     this.input.requestFocusInWindow()
 

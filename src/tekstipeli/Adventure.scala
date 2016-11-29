@@ -63,11 +63,14 @@ class Adventure {
   val house  = new House(rooms, hallway)
   val bunker = new Bunker(house.warnedHumans, bunkerArea.items, allItems)
   
+
+  
   house.placeItems(items)
 
+  
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 21
-
+  
   /** Determines if the adventure is complete, that is, if the player has won. */
   def isComplete = bunker.gameCompleted
 

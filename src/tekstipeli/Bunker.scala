@@ -15,7 +15,6 @@ class Bunker(val humans: Map[String, Human], val depositedItems: Map[String, Buf
   var gameCompleted = false
   var allDead = false
   var deadHumans = Buffer[Human]()
-  
 
   def currentDay = this.day
   
