@@ -25,7 +25,7 @@ class Event(val name: String, val description: String, val bunker: Bunker, val u
       itemStatus.split(":").mkString(", ")
     }
     val requiredItems = "\nUsefull items: " + itemStatus
-    this.description + (if(this.name != "noEvent") requiredItems)
+    this.description + (if(this.name != "noEvent") requiredItems else "")
   }
   
   def addItem(item: Item) = {

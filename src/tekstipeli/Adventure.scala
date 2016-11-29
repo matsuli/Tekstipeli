@@ -72,11 +72,7 @@ class Adventure {
 
 
   /** Determines if the adventure is complete, that is, if the player has won. */
-  def isComplete = {
-    house.location == this.destination &&
-    (this.house.has("battery") && house.has("remote"))
-    
-  }
+  def isComplete = bunker.gameCompleted
 
   /** Determines whether the player has won, lost, or quit, thereby ending the game. */ 
   def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit

@@ -12,6 +12,8 @@ class House(val rooms: Map[String, Area], startingArea: Area) {
   private val inventoryLimit = 4
   val warnedHumans = Map[String, Human]()
   
+  def help: String = "Pick up items and deposit them to the bunker. Also warn the others. Usable commands: get/take, go, open, drop, deposit, inventory, warn"
+  
   def distanceToItem(item: String): Int = {
     var distance = 1
     var currentArea = Vector(location)
