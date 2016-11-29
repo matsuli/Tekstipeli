@@ -1,0 +1,23 @@
+Peli on kaksiosainen.
+
+Osa 1 talossa: 
+
+Käytä go [roomName] komentoa liikkuaksesi talossa. Käytä get/take [itemName] komentoa ottaaksesi tavaroita.
+Käytä open [itemName] avataksesi esimerkiksi kaappeja. Ruoka ja juomat tosi tärkeitä, muitakin tavaroita tarvitaan. 
+Deposit komentoa voi käyttää vain livingroomissa laittaaksesi tavarat bunkkeriin ja saadaksesi tyhjän inventoryn. InventorysSize = 4 TÄRKEÄ!
+Käytä warn [humanName] varoittaaksesi muita ihmisiä. Peli päättyy jos et ole varoittanut ketään.
+
+Ihmiset ovat aina samoissa huoneissa, tavarat eivät. Talon layout aina sama.
+
+Osa 2 bunkkerissa:
+
+feed [all] ruokkiaksesi kaikki ihmiset, feed [humanName] ruokkiaksesi tiettyä ihmistä. Give komento toimii samalla periaatteela kuin feed. TÄRKEÄ!
+PIDÄ AINAKIN YKSI IHMINEN HENGISSÄ VOITTAAKSESI!
+
+use [itemName] käyttääksesi tavaraa tehtävään. open door tarvitaan joissakin tehtävissä missä avataan ovi.
+
+next day siirtyäksesi seuraavaan päivään.
+
+
+
+HUOM! Koska pelissä on satunnaisia tapahtumia voi pelin läpäiseminen olla helppoa tai melkein mahdotonta.
